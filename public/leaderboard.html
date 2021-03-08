@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leader board</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://use.fontawesome.com/5485113cb7.js"></script>
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    * {box-sizing: border-box;}
+    -->
+
+    <link rel="stylesheet" href="./stylesheets/leaderboard.css" />
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-9">
+        <h1>Leader Board</h1>
+      </div>
+      <div class="col-3">
+        <div class="search">
+          <form id="searchForm" action="/searchBoard" method="get">
+            <!--<input type="hidden" name="_csrf" value="{{csrf}}">-->
+            <input
+              type="text"
+              placeholder="Search puzzle id.."
+              name="puzzleid"
+              class="puzzleid"
+            />
+            <button type="submit" id = "smit" class="searchButton">
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="boardBody" class="row">
+      <h2>Most Popular Puzzles</h2>
+
+      <div class="col-12">
+        <div id="boards" class="row"></div>
+
+        <!-- display search board
+            <div class="boardSeach"></div>-->
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./javascripts/leaderboard.js"></script>
+  </body>
+</html>
