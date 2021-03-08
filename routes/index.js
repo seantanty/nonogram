@@ -1,7 +1,78 @@
 var express = require("express");
 var router = express.Router();
+var path = require("path");
+var passport = require("passport");
 
 const myDB = require("../db/MyDB.js");
+
+//middle function to check login status
+function loggedIn(req, res, next) {
+  console.log("loggedIn");
+  console.log(req.user);
+  if (req.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+//index route, still subject to update
+router.get("/", loggedIn, function (req, res) {
+  let fileName = path.join(__dirname + "/../public/index.html");
+  console.log("redirect should have user");
+  console.log(req.user);
+  var options = {
+    headers: {
+      name: req.user._id,
+    },
+  };
+  res.sendFile(fileName, options);
+});
+
+router.post("/register", async (req, res) => {
+  try {
+    console.log(req.body);
+    const userObj = {
+      username: req.body.username,
+      password: req.body.password,
+    };
+    const dbRes = await myDB.createUser(userObj);
+    if (dbRes == null) {
+      res.status(400).send({ message: "Username existed." });
+    } else {
+      passport.authenticate("local")(req, res, function () {
+        res.redirect("/");
+      });
+    }
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.get("/login", function (req, res) {
+  res.sendFile(path.join(__dirname + "/../public/login.html"));
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/login" }),
+  function (req, res) {
+    console.log("successful login");
+    res.redirect("/");
+  }
+);
+
+router.get("/logout", loggedIn, function (req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
+router.get("/profile", loggedIn, function (req, res) {
+  // let generatePage = myDB.getUserProfilePage(req.user._id);
+  // res.send(generatePage);
+  res.send("<p>some html</p>");
+});
 
 /*leader board routs*/
 // get boards of popular puzzles
@@ -22,9 +93,9 @@ router.post("/searchBoard", async (req, res) => {
   try {
     const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
-    const leaderBoard = { 
+    const leaderBoard = {
       puzzle: puzzle._id,
-      leaderboard: puzzle.leaderBoard 
+      leaderboard: puzzle.leaderBoard,
     };
     res.send(leaderBoard);
   } catch (e) {

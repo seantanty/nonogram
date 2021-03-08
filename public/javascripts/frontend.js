@@ -1,6 +1,23 @@
 console.log("Front!");
 
 const divFiles = document.querySelector("#files");
+const authAnchor = document.querySelector("#authAnchor");
+
+function appendAuth() {
+  const login = document.createElement("a");
+  let loginText = document.createTextNode("Login");
+  login.appendChild(loginText);
+  login.setAttribute("class", "btn btn-outline-primary");
+  login.setAttribute("href", "/login.html");
+  authAnchor.appendChild(login);
+
+  const logout = document.createElement("a");
+  let logoutText = document.createTextNode("LogOut");
+  logout.appendChild(logoutText);
+  logout.setAttribute("class", "btn btn-outline-primary");
+  logout.setAttribute("href", "/logout");
+  authAnchor.appendChild(logout);
+}
 
 async function deleteFile(file) {
   // Default options are marked with *
@@ -52,3 +69,4 @@ async function reloadFiles() {
 }
 
 reloadFiles();
+appendAuth();
