@@ -17,10 +17,10 @@ router.get("/getPuzzles", async (req, res) => {
 });
 
 //get board by searching puzzle id
-router.get("/searchBoard", async (req, res) => {
-  console.log("Search a puzzle", req.query);
+router.post("/searchBoard", async (req, res) => {
+  console.log("Search a puzzle", req.body);
   try {
-    const puzzleId = req.query.puzzleid;
+    const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
     const leaderBoard = { 
       puzzle: puzzle._id,
