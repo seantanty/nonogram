@@ -3,6 +3,36 @@ var router = express.Router();
 
 const myDB = require("../db/MyDB.js");
 
+/*leader board routs*/
+// get boards of popular puzzles
+router.get("/getPuzzles", async (req, res) => {
+  try {
+    console.log("Getting polular puzzles");
+    const puzzles = await myDB.getPuzzles();
+    res.send({ puzzles: puzzles });
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
+//get board by searching puzzle id
+router.get("/searchBoard", async (req, res) => {
+  console.log("Search a puzzle", req.query);
+  try {
+    const puzzleId = req.query.puzzleid;
+    const puzzle = await myDB.getPuzzleById(puzzleId);
+    const leaderBoard = { 
+      puzzle: puzzle._id,
+      leaderboard: puzzle.leaderBoard 
+    };
+    res.send(leaderBoard);
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
 router.post("/deleteFile", async (req, res) => {
   console.log("Delete file", req.body);
   try {
