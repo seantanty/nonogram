@@ -4,7 +4,7 @@ function MyDB() {
   const myDB = {};
 
   const url =
-    "mongodb+srv://seantan:<password>@cluster0.u90qt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    "mongodb+srv://seantan:<password>@cluster0.u90qt.mongodb.net/test";
   // process.env.MONGO_URL || "mongodb://localhost:27017";
   const DB_NAME = "5610Project2";
   
