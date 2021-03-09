@@ -36,6 +36,7 @@ passport.use(
   })
 );
 
+//check those two
 passport.serializeUser(function (user, cb) {
   cb(null, user._id);
 });

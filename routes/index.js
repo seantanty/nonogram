@@ -68,10 +68,22 @@ router.get("/logout", loggedIn, function (req, res) {
   res.redirect("/");
 });
 
+router.get("/getUser", (req, res) =>
+  res.send({
+    username: req.user ? req.user.username : null,
+    played: req.user ? req.user.played : null,
+  })
+);
+
 router.get("/profile", loggedIn, function (req, res) {
   // let generatePage = myDB.getUserProfilePage(req.user._id);
   // res.send(generatePage);
-  res.send("<p>some html</p>");
+  // let message = "<h1>" + "Signed in as" + req.user.username + "</h1>";
+  // res.send(message);
+  let fileName = path.join(__dirname + "/../public/profile.html");
+  console.log("redirect should have user");
+  console.log(req.user);
+  res.sendFile(fileName);
 });
 
 /*leader board routs*/
@@ -151,7 +163,7 @@ router.get("/getFiles", async (req, res) => {
   try {
     console.log("myDB", myDB);
     const files = await myDB.getFiles();
-    res.send({ files: files });
+    // res.send({ files: files, user: req.user.username });
   } catch (e) {
     console.log("Error", e);
     res.status(400).send({ err: e });
