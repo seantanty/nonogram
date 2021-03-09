@@ -1,3 +1,126 @@
-h1 {
-  color: blue;
+body {
+    margin: 15px;
+    /* background-color: #EDDCCB; */
+    font-family: helvetica, arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
 }
+
+table {
+    background-color: white;
+}
+table, tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+section {
+    display: inline-block;
+    text-align: center;
+}
+
+section.intro {
+    margin-bottom: 0;
+    margin-left: 50px;
+    align-self: center;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+h3, h4 {
+    margin-top: 0;
+}
+
+section.rules {
+    align-self: center;
+    /*margin-top: 50px;*/
+    margin-left: 15px;
+    font-size: 90%;
+}
+
+div.rules {
+    display: inline-block;
+    /*margin: auto;*/
+    text-align: left;
+}
+
+h3.rules {
+    margin-bottom: 0;
+}
+
+ul.rules {
+    margin-top: 0;
+}
+
+#timer {
+  font-size: 100%;
+  font-weight: bold;
+  color: #00bfff;
+}
+
+.controls {
+  padding-top: 20px;
+}
+
+table td {
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.game-cell.checked {
+    background-color: grey;
+}
+
+.game-cell.marked {
+    background: url('..images/icons8-delete-50.png');
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+}
+
+.info-cell {
+    background-color: lightgrey;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.info-cell span.checked {
+    text-decoration: line-through;
+    color: grey;
+}
+
+/* side info cells */
+table td:first-child {
+    width: 50px;
+    text-align: right;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+table td:first-child span {
+    margin-left: 5px;
+}
+
+/* top info cells */
+tbody tr:first-child td {
+    height: 50px;
+}
+
+tbody tr:first-child td > div {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+
+
+
