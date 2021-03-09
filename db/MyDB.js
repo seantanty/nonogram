@@ -33,7 +33,7 @@ function MyDB() {
       client.close();
     }
   };
-
+ 
   // get the puzzle searched by puzzle id
   myDB.getPuzzleById = async (query) => {
     let client;
@@ -48,6 +48,34 @@ function MyDB() {
       const files = await filesCol.find({ _id: ObjectId(query) }).toArray();
       console.log("Got the puzzle", files);
       return files[0];
+    } finally {
+      console.log("Closing the connection");
+      client.close();
+    }
+  };
+  
+  // get three puzzles for each size for playing
+  myDB.getPuzzleBySize = async () => {
+    let client;
+    try {
+      client = new MongoClient(url, { useUnifiedTopology: true });
+      console.log("Connecting to the db");
+      await client.connect();
+      console.log("Connected!");
+      const db = client.db(DB_NAME);
+      const filesCol = db.collection("puzzles");
+      //console.log("Collection ready, querying with id: ", query);
+      const files = new Array(3);
+      var sizes = new Array(5, 10, 15);
+      for (var i = 0; i < 3; i++) {
+        const file = await filesCol.aggregate(
+          [{"$match": {"size": sizes[i]}}, {"$sample": {"size": 1}}]).toArray();
+        files[i] = file;
+      }
+      
+      console.log("Got files", files);
+
+      return files;
     } finally {
       console.log("Closing the connection");
       client.close();
