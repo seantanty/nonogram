@@ -27,19 +27,80 @@
       </nav>
       <div id="authAnchor"></div>
     </header>
-    <h1>Testing</h1>
-    <div class="row">
-      <div class="col-8">
-        <h2>Files</h2>
-        <div id="files" class="row"></div>
-        <div id="searchResult" class="row"></div>
+    
+    <section class="rules">
+      <div class="rules">
+        <h3 class="rules">Rules:</h3>
+          <ul class="rules">
+            <li>Mark cells you know aren't spots</li>
+            <li>Mark the top and side numbers when you're done</li>
+            <li>Click and drag to select multiple cells at once</li>
+          </ul>
       </div>
-    </div>
+      <div id="timer"></div>
+    </section>
+    
+    <section>
+      <div class="intro">
+        <h1>Nonogram</h1>
+      </div>
+
+      <div class="puzzleBody">
+        <!--<div id="size" class="row">
+          <div class="col-6">
+            <form action="/getPuzzle" method="get">
+              <fieldset>
+              <legend>Choose a puzzle size</legend>
+              <input type="radio" name="size" id="size_1" value="small"> <label for="size_1">5*5</label>
+              <input type="radio" name="size" id="size_2" value="medium"> <label for="size_2">10*10</label>
+              <input type="radio" name="size" id="size_3" value="large"> <label for="size_3">15*15</label>
+            </fieldset>
+            </form>
+          </div>
+          <div class="col-4">
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search puzzle id.."
+                  name="search"
+                  class="searchPuzzle"
+                />
+                <button type="submit" class="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>-->
+      
+        <table>
+          <tbody id="game-table-body">
+            </tbody>
+          </table>
+      </div>
+        
+      <div id="controls" class="controls">
+        <!--<button id="start" type="button">Start</button>-->
+        <button id="submit" type="button">Done</button>
+        <button id="restart" type="button">New Puzzle</button>
+      </div>
+    </section>
+
+    <section>
+      <div id="resultsBody" class="results">
+        <div class="time"></div>
+        <div class="leaderboard"></div>
+      </div>
+    </section>
+    
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
       crossorigin="anonymous"
     ></script>
+    <script src="https://use.fontawesome.com/5485113cb7.js"></script>
     <script src="./javascripts/frontend.js"></script>
   </body>
 </html>
