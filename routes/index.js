@@ -86,6 +86,19 @@ router.get("/profile", loggedIn, function (req, res) {
   res.sendFile(fileName);
 });
 
+/*index routs*/
+// get puzzle by size
+router.get("/getPuzzlesPlay", async (req, res) => {
+  try {
+    console.log("Getting puzzles by size");
+    const puzzles = await myDB.getPuzzleBySize();
+    res.send({ puzzles: puzzles });
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
 /*leader board routs*/
 // get boards of popular puzzles
 router.get("/getPuzzles", async (req, res) => {
