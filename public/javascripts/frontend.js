@@ -73,7 +73,7 @@ async function play() {
 
   //let timerVar = setInterval(countTimer, 1000);
   let totalSeconds = 0;
-  let finalSeconds;
+  let timerVar;
 
   document.getElementById("restart").addEventListener("click", () => {
     window.location.reload();
@@ -100,7 +100,7 @@ async function play() {
 
     makeGame();
     setHints();
-    setInterval(countTimer, 1000);
+    timerVar = setInterval(countTimer, 1000);
     //reset();
   }
 
@@ -132,9 +132,10 @@ async function play() {
 
     // give enough time for css of last cell to update
     setTimeout(() => alert("You win!"), 50);
-    finalSeconds = totalSeconds;
+    clearInterval(timerVar);
+    let finalSeconds = totalSeconds;
     console.log("Solving time: ", finalSeconds);
-    // TODO! clear interval to stop time ticking.
+    
   }
 
   // updates game cells, not info cells
