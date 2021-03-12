@@ -45,6 +45,7 @@ function renderFile(file) {
   divFiles.appendChild(divFile);
 }
 
+let totalSeconds = 0;
 async function play() {
   // get a puzzle
   const resRaw = await fetch("/getPuzzlesPlay");
@@ -70,9 +71,7 @@ async function play() {
   const tbody = document.querySelector("#game-table-body");
 
   let currentSelectState = undefined;
-
-  //let timerVar = setInterval(countTimer, 1000);
-  let totalSeconds = 0;
+  
   let timerVar;
 
   document.getElementById("restart").addEventListener("click", () => {
@@ -133,8 +132,7 @@ async function play() {
     // give enough time for css of last cell to update
     setTimeout(() => alert("You win!"), 50);
     clearInterval(timerVar);
-    let finalSeconds = totalSeconds;
-    console.log("Solving time: ", finalSeconds);
+    console.log("Solving time: ", totalSeconds);
     
   }
 
