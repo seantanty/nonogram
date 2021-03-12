@@ -2,10 +2,12 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 var passport = require("passport");
+var bcrypt = require("bcrypt");
 
 const myDB = require("../db/MyDB.js");
+const saltRounds = 10;
 
-//middle function to check login status
+//middle function to check login status, pending modification
 function loggedIn(req, res, next) {
   console.log("loggedIn");
   console.log(req.user);
@@ -31,11 +33,13 @@ router.get("/", loggedIn, function (req, res) {
 
 router.post("/register", async (req, res) => {
   try {
-    console.log(req.body);
+    const hashedPwd = await bcrypt.hash(req.body.password, saltRounds);
     const userObj = {
       username: req.body.username,
-      password: req.body.password,
+      password: hashedPwd,
+      played: [],
     };
+    console.log(userObj);
     const dbRes = await myDB.createUser(userObj);
     if (dbRes == null) {
       res.status(400).send({ message: "Username existed." });
@@ -68,10 +72,12 @@ router.get("/logout", loggedIn, function (req, res) {
   res.redirect("/");
 });
 
+//need to change it to session
 router.get("/getUser", (req, res) =>
   res.send({
     username: req.user ? req.user.username : null,
     played: req.user ? req.user.played : null,
+    check: req.session.passport ? req.session.passport : null,
   })
 );
 
@@ -129,54 +135,12 @@ router.post("/searchBoard", async (req, res) => {
   }
 });
 
-router.post("/deleteFile", async (req, res) => {
-  console.log("Delete file", req.body);
-  try {
-    const file = req.body;
-    const dbRes = await myDB.deleteFile(file);
-    res.send({ done: dbRes });
-  } catch (e) {
-    console.log("Error", e);
-    res.status(400).send({ err: e });
-  }
-});
-
-router.post("/createFile", async (req, res) => {
-  console.log("Create file", req.body);
-
-  let file;
-  let uploadPath;
-
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send("No files were uploaded.");
-  }
-
-  file = req.files.file;
-  uploadPath = __dirname + "/../public/images/" + file.name;
-
-  // if (err) return res.status(500).send(err);
-
-  try {
-    // Use the mv() method to place the file somewhere on your server
-    await file.mv(uploadPath);
-
-    const fileObj = { name: req.body.name, url: "/images/" + file.name };
-    const dbRes = await myDB.createFile(fileObj);
-    // res.send({ done: dbRes });
-
-    res.redirect("/");
-  } catch (e) {
-    console.log("Error", e);
-    res.status(400).send({ err: e });
-  }
-});
-
-// data endpoint for files
+//pending delete
 router.get("/getFiles", async (req, res) => {
   try {
     console.log("myDB", myDB);
     const files = await myDB.getFiles();
-    // res.send({ files: files, user: req.user.username });
+    res.send({ files: files });
   } catch (e) {
     console.log("Error", e);
     res.status(400).send({ err: e });

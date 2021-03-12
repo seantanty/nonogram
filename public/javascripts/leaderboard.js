@@ -2,13 +2,14 @@ console.log("Leader board!");
 
 /*display popular boards*/
 const divBoards = document.querySelector("#boards");
+const authAnchor = document.querySelector("#authAnchor");
 
 function tableCreate(lb, divBoard) {
   var tbl = document.createElement("table");
   tbl.style.width = "100%";
   tbl.setAttribute("border", "1");
   var tbdy = document.createElement("tbody");
-  
+
   var tr = document.createElement("tr");
   var td = document.createElement("td");
   td.appendChild(document.createTextNode("Rank"));
@@ -30,7 +31,7 @@ function tableCreate(lb, divBoard) {
       td = document.createElement("td");
       td.appendChild(document.createTextNode(lb[i][j]));
       tr.appendChild(td);
-    }     
+    }
     tbdy.appendChild(tr);
   }
   tbl.appendChild(tbdy);
@@ -52,7 +53,7 @@ function renderBoard(puzzle) {
   divBoards.appendChild(divBoard);
 }
 
-async function reloadBoards(){
+async function reloadBoards() {
   divBoards.innerHTML = "";
   const resRaw = await fetch("/getPuzzles");
   const res = await resRaw.json();
@@ -62,7 +63,6 @@ async function reloadBoards(){
 }
 
 reloadBoards();
-
 
 /*Display search board if event invokes*/
 //var smit = document.getElementById("smit");
@@ -77,21 +77,30 @@ async function displaySearchBoard() {
 
 //smit.addEventListener("click", displaySearchBoard, false);
 
-
-
-
-
-
-
-
-
-
-
 //function displayBoard(board) {}
 
+//add login/logout button
+async function appendAuth() {
+  authAnchor.innerHTML = "";
+  const userRaw = await fetch("/getUser");
+  const user = await userRaw.json();
 
+  console.log("Check user", user);
 
-
-
-
-
+  if (user.username != null) {
+    const logout = document.createElement("a");
+    let logoutText = document.createTextNode("LogOut");
+    logout.appendChild(logoutText);
+    logout.setAttribute("class", "btn btn-outline-primary");
+    logout.setAttribute("href", "/logout");
+    authAnchor.appendChild(logout);
+  } else {
+    const login = document.createElement("a");
+    let loginText = document.createTextNode("Login");
+    login.appendChild(loginText);
+    login.setAttribute("class", "btn btn-outline-primary");
+    login.setAttribute("href", "/login.html");
+    authAnchor.appendChild(login);
+  }
+}
+appendAuth();

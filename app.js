@@ -3,6 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
+var bcrypt = require("bcrypt");
 
 var indexRouter = require("./routes/index");
 var passport = require("passport");
@@ -28,7 +29,7 @@ passport.use(
       if (!user) {
         return done(null, false);
       }
-      if (user.password != password) {
+      if (!bcrypt.compareSync(password, user.password)) {
         return done(null, false);
       }
       return done(null, user);
@@ -36,7 +37,6 @@ passport.use(
   })
 );
 
-//check those two
 passport.serializeUser(function (user, cb) {
   cb(null, user._id);
 });

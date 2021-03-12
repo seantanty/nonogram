@@ -33,7 +33,7 @@ function MyDB() {
       client.close();
     }
   };
- 
+
   // get the puzzle searched by puzzle id
   myDB.getPuzzleById = async (query) => {
     let client;
@@ -53,7 +53,7 @@ function MyDB() {
       client.close();
     }
   };
-  
+
   // get three puzzles for each size for playing
   myDB.getPuzzleBySize = async () => {
     let client;
@@ -68,11 +68,12 @@ function MyDB() {
       const files = new Array(3);
       var sizes = new Array(5, 10, 15);
       for (var i = 0; i < 3; i++) {
-        const file = await filesCol.aggregate(
-          [{"$match": {"size": sizes[i]}}, {"$sample": {"size": 1}}]).toArray();
+        const file = await filesCol
+          .aggregate([{ $match: { size: sizes[i] } }, { $sample: { size: 1 } }])
+          .toArray();
         files[i] = file;
       }
-      
+
       console.log("Got files", files);
 
       return files;
@@ -96,46 +97,6 @@ function MyDB() {
       console.log("Got files", files);
 
       return files;
-    } finally {
-      console.log("Closing the connection");
-      client.close();
-    }
-  };
-
-  myDB.deleteFile = async (file) => {
-    let client;
-    try {
-      client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
-      await client.connect();
-      console.log("Connected!");
-      const db = client.db(DB_NAME);
-      const filesCol = db.collection("files");
-      console.log("Collection ready, deleting ", file);
-      const files = await filesCol.deleteOne({ _id: ObjectId(file._id) });
-      console.log("Got files", files);
-
-      return files;
-    } finally {
-      console.log("Closing the connection");
-      client.close();
-    }
-  };
-
-  myDB.createFile = async (file) => {
-    let client;
-    try {
-      client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
-      await client.connect();
-      console.log("Connected!");
-      const db = client.db(DB_NAME);
-      const filesCol = db.collection("files");
-      console.log("Collection ready, insert ", file);
-      const res = await filesCol.insertOne(file);
-      console.log("Inserted", res);
-
-      return res;
     } finally {
       console.log("Closing the connection");
       client.close();
