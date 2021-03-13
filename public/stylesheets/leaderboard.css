@@ -17,7 +17,7 @@ body {
 
 .puzzleid {
   border: 3px solid #00B4CC;
-  border-right: none;
+  /*border-right: none;*/
   height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
@@ -32,7 +32,7 @@ body {
   width: 40px;
   height: 36px;
   border: 1px solid #00B4CC;
-  border-left: none;
+  /*border-left: none;*/
   background: #00B4CC;
   text-align: center;
   color: #fff;
@@ -40,4 +40,22 @@ body {
   cursor: pointer;
   font-size: 20px;
 }
+
+table, tr, td {
+  /*border: 1px solid black;*/
+  border-collapse: collapse;
+  border-radius: 2px;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #666;
+}
+
+.searcgBoardBody {
+  padding-top: 25px;
+}
+
+/*
+td {
+  border: 1px solid #ccc;
+}
+*/
 
