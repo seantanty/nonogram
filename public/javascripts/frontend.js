@@ -38,6 +38,7 @@ async function play() {
   console.log("Get whole info of the selected puzzle ", puzzleWhole);
   let puzzle = puzzleWhole.info;
   console.log("Get the puzzle", puzzle);
+  let solved = false;
 
   // play puzzle
   //const divPuzzle = document.querySelector("#puzzle");
@@ -61,6 +62,12 @@ async function play() {
 
   makeTable();
   start();
+
+  document.getElementById("submit").addEventListener("click", () => {
+    if (solved == true) {
+      checkGameAndRecordTime(totalSeconds);
+    }
+  });
 
   function start() {
     /*switch (difficulty) {
@@ -113,8 +120,9 @@ async function play() {
     // give enough time for css of last cell to update
     setTimeout(() => alert("You win!"), 50);
     clearInterval(timerVar);
+    solved = true;
     console.log("Solving time: ", totalSeconds);
-    checkGameAndRecordTime(totalSeconds);
+    // checkGameAndRecordTime(totalSeconds);
   }
 
   async function checkGameAndRecordTime(sec) {

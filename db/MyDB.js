@@ -174,7 +174,7 @@ function MyDB() {
       let dbLb = data[0].leaderBoard;
 
       if (
-        query.index == 6 ||
+        query.index == 11 ||
         query.index == dbLb.length ||
         dbLb.length == undefined
       ) {
@@ -192,8 +192,7 @@ function MyDB() {
             {
               $push: {
                 leaderBoard: {
-                  gameId: query.username,
-                  time: query.time,
+                  $each: [{ gameId: query.username, time: query.time }],
                   $position: pos,
                 },
               },
@@ -214,8 +213,7 @@ function MyDB() {
             {
               $push: {
                 leaderBoard: {
-                  gameId: query.username,
-                  time: query.time,
+                  $each: [{ gameId: query.username, time: query.time }],
                   $position: pos,
                 },
               },
