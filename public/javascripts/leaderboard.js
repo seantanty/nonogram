@@ -96,11 +96,11 @@ async function displaySearchBoard(event) {
   console.log("Got search data", res);
 
   const divSearchBoard = document.querySelector("#boardSeach");
+  divSearchBoard.innerHTML = "";
   let h3 = document.createElement("h3");
   h3.innerHTML = "Search By Id";
   divSearchBoard.appendChild(h3);
   renderBoard(res, divSearchBoard);
-
 }
 
 
