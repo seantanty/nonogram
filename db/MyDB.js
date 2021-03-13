@@ -123,7 +123,7 @@ function MyDB() {
     }
   };
 
-  myDB.findUserByUserName = async (query = {}, done) => {
+  myDB.findUserByUserName = async (query = {}) => {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
@@ -170,7 +170,7 @@ function MyDB() {
     }
   };
 
-  //still working on this
+  //pending delete
   myDB.getUserProfilePage = async (query = {}) => {
     let client;
     try {
@@ -194,6 +194,58 @@ function MyDB() {
       divOut.appendChild(title);
 
       return divOut;
+    } finally {
+      console.log("Closing the connection");
+      client.close();
+    }
+  };
+
+  myDB.saveTimeToUser = async (query = {}) => {
+    let client;
+    try {
+      client = new MongoClient(url, { useUnifiedTopology: true });
+      console.log("Connecting to the db");
+      await client.connect();
+      console.log("Connected!");
+      const db = client.db(DB_NAME);
+      const userCol = db.collection("Users");
+      console.log("Collection ready, querying with ", query.username);
+      const data = await userCol.find(query.username).toArray();
+      console.log("Got user", data);
+
+      let res = null;
+      let games = data[0].played;
+
+      //if time is better then current or there is no time yet
+      if (games.length == 0) {
+        //add puzzleId with time to array
+        db.collection("Users").update(
+          { _id: data[0]._id },
+          { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+        );
+      } else {
+        let index = null;
+        for (let i = 0; i < games.length; i++) {
+          if (games[i].gameId == query.puzzleId) {
+            index = i;
+            break;
+          }
+        }
+        if (index) {
+          //replace existing puzzleId's time
+          db.collection("Users").updateOne(
+            { _id: data[0]._id },
+            { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+          );
+        } else {
+          //first time paly game, add puzzleId with time to array
+          db.collection("Users").update(
+            { _id: data[0]._id },
+            { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+          );
+        }
+      }
+      return res;
     } finally {
       console.log("Closing the connection");
       client.close();

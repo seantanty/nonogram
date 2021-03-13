@@ -1,6 +1,5 @@
 console.log("Front!");
 
-const divFiles = document.querySelector("#files");
 const authAnchor = document.querySelector("#authAnchor");
 
 async function appendAuth() {
@@ -25,24 +24,6 @@ async function appendAuth() {
     login.setAttribute("href", "/login.html");
     authAnchor.appendChild(login);
   }
-}
-
-function renderFile(file) {
-  console.log("called");
-  const divFile = document.createElement("div");
-
-  divFile.className = "file card p-1 col-3";
-
-  const divName = document.createElement("div");
-  divName.textContent = file._id;
-  divFile.appendChild(divName);
-
-  const textDisplay = document.createElement("p");
-  let desText = document.createTextNode(file.text);
-  textDisplay.appendChild(desText);
-  divFile.appendChild(textDisplay);
-
-  divFiles.appendChild(divFile);
 }
 
 let totalSeconds = 0;
@@ -71,7 +52,7 @@ async function play() {
   const tbody = document.querySelector("#game-table-body");
 
   let currentSelectState = undefined;
-  
+
   let timerVar;
 
   document.getElementById("restart").addEventListener("click", () => {
@@ -111,8 +92,8 @@ async function play() {
     if (hour < 10) hour = "0" + hour;
     if (minute < 10) minute = "0" + minute;
     if (seconds < 10) seconds = "0" + seconds;
-    document.getElementById("timer").innerHTML = "Timer: " + 
-      hour + ":" + minute + ":" + seconds;
+    document.getElementById("timer").innerHTML =
+      "Timer: " + hour + ":" + minute + ":" + seconds;
   }
 
   function checkForWin() {
@@ -133,7 +114,58 @@ async function play() {
     setTimeout(() => alert("You win!"), 50);
     clearInterval(timerVar);
     console.log("Solving time: ", totalSeconds);
-    
+    checkGameAndRecordTime(totalSeconds);
+  }
+
+  async function checkGameAndRecordTime(sec) {
+    const userRaw = await fetch("/getUser");
+    const user = await userRaw.json();
+
+    console.log("Check user", user);
+
+    let lb = puzzle.leaderBoard;
+    console.log(sec);
+
+    // if (user.username != null) {
+    //   //first store time and puzzle id to user
+    //   const request = {
+    //     username: user.username,
+    //     puzzleId: idx,
+    //     time: totalSeconds,
+    //   };
+    //   const saveToUser = await myDB.saveTimeToUser(request);
+    //   //if leaderboard.size<5, change res.leaderboard and record to leaderboard
+    //   if (lb.length < 5) {
+    //     if (lb.length == 0) {
+    //       //empty, just store it
+    //     } else {
+    //       let checkIndex = 6;
+    //       for (let i = 0; i < lb.length; i++) {
+    //         if (lb[i] > totalSeconds) {
+    //           checkIndex = i;
+    //           break;
+    //         }
+    //       }
+    //       //update
+    //       //4, 0 1 2 3 ,6
+    //     }
+    //   } else {
+    //     let checkIndex = 6;
+    //     for (let i = 0; i < lb.length; i++) {
+    //       if (lb[i] > sec) {
+    //         checkIndex = i;
+    //         break;
+    //       }
+    //     }
+    //     if (checkIndex < 5) {
+    //       //update
+    //     }
+    //   }
+    // }
+    //display user's time and leaderboard
+    //You finished puzzle in xxx seconds
+    //show the leaderboard
+    return lb;
   }
 
   // updates game cells, not info cells
@@ -301,15 +333,15 @@ async function play() {
         let cell = board[row][col];
 
         switch (cell.selectedState) {
-        case STATE_UNSELECTED:
-          cell.selectedState = STATE_SELECTED;
-          break;
-        case STATE_SELECTED:
-          cell.selectedState = STATE_MARKED;
-          break;
-        case STATE_MARKED:
-          cell.selectedState = STATE_UNSELECTED;
-          break;
+          case STATE_UNSELECTED:
+            cell.selectedState = STATE_SELECTED;
+            break;
+          case STATE_SELECTED:
+            cell.selectedState = STATE_MARKED;
+            break;
+          case STATE_MARKED:
+            cell.selectedState = STATE_UNSELECTED;
+            break;
         }
 
         currentSelectState = cell.selectedState;
@@ -323,19 +355,5 @@ async function play() {
   }
 }
 
-
 appendAuth();
 play();
-
-// async function reloadFiles() {
-//   divFiles.innerHTML = "";
-//   const resRaw = await fetch("/getFiles");
-//   const res = await resRaw.json();
-
-//   console.log("Got data", res);
-
-//   res.files.forEach(renderFile);
-// }
-
-// reloadFiles();
-//appendAuth();

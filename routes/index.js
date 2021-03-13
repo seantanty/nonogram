@@ -82,10 +82,6 @@ router.get("/getUser", (req, res) =>
 );
 
 router.get("/profile", loggedIn, function (req, res) {
-  // let generatePage = myDB.getUserProfilePage(req.user._id);
-  // res.send(generatePage);
-  // let message = "<h1>" + "Signed in as" + req.user.username + "</h1>";
-  // res.send(message);
   let fileName = path.join(__dirname + "/../public/profile.html");
   console.log("redirect should have user");
   console.log(req.user);

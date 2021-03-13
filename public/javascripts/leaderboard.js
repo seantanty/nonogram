@@ -8,7 +8,7 @@ function tableCreate(lb, divBoard) {
   tbl.style.width = "100%";
   tbl.setAttribute("border", "1");
   let tbdy = document.createElement("tbody");
-  
+
   let tr = document.createElement("tr");
   let td = document.createElement("td");
   td.appendChild(document.createTextNode("Rank"));
@@ -30,7 +30,7 @@ function tableCreate(lb, divBoard) {
       td = document.createElement("td");
       td.appendChild(document.createTextNode(lb[i][j]));
       tr.appendChild(td);
-    }     
+    }
     tbdy.appendChild(tr);
   }
   tbl.appendChild(tbdy);
@@ -53,7 +53,7 @@ function renderBoard(puzzle) {
   divBoards.appendChild(divBoard);
 }
 
-async function reloadBoards(){
+async function reloadBoards() {
   divBoards.innerHTML = "";
   const resRaw = await fetch("/getPuzzles");
   const res = await resRaw.json();
@@ -71,12 +71,9 @@ async function reloadBoards(){
 
 reloadBoards();
 
-
-
 /*Display search board if event invokes*/
 let formPuzzle = document.getElementById("searchForm");
 formPuzzle.addEventListener("submit", displaySearchBoard);
-
 
 async function displaySearchBoard(event) {
   event.preventDefault();
@@ -85,19 +82,17 @@ async function displaySearchBoard(event) {
   console.log("Puzzle id: ", puzzleId);
 
   const resRaw = await fetch("/searchBoard", {
-    method: "GET",
-    headers : { 
+    method: "POST",
+    headers: {
       "Content-Type": "application/json",
     },
-    query:JSON.stringify({puzzleid: puzzleId})
+    body: JSON.stringify({ puzzleid: puzzleId }),
   });
 
   //const puzzleIdReq = req.body.puzzleid;
-  
 
   const res = await resRaw.json();
   console.log("Got puzzle id", res);
-  
 
   //console.log("Got search data", res);
 
@@ -106,23 +101,4 @@ async function displaySearchBoard(event) {
 
 //displaySearchBoard();
 
-
-
-
-
-
-
-
-
-
-
-
-
 //function displayBoard(board) {}
-
-
-
-
-
-
-
