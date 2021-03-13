@@ -143,7 +143,7 @@ async function play() {
       const res = await resRaw.json();
       console.log(res);
       //if leaderboard.size<5, change res.leaderboard and record to leaderboard
-      if (lb.leaderBoard.length < 5) {
+      if (lb.leaderBoard.length < 10) {
         if (lb.leaderBoard.length == 0) {
           const resLbRaw = await fetch("/saveToLeaderBoard", {
             method: "POST",
@@ -154,21 +154,21 @@ async function play() {
               username: user.username,
               puzzleId: lb._id,
               time: sec,
-              index: 6,
+              index: 11,
               trim: false,
             }),
           });
           const resLb = await resLbRaw.json();
           console.log(resLb);
         } else {
-          let checkIndex = 7;
+          let checkIndex = 12;
           for (let i = 0; i < lb.leaderBoard.length; i++) {
             if (lb.leaderBoard[i][1] > totalSeconds) {
               checkIndex = i;
               break;
             }
           }
-          if (checkIndex == 7) {
+          if (checkIndex == 12) {
             checkIndex = lb.leaderBoard.length;
           }
           const resLbRaw = await fetch("/saveToLeaderBoard", {
@@ -188,14 +188,14 @@ async function play() {
           console.log(resLb);
         }
       } else {
-        let checkIndex = 6;
+        let checkIndex = 11;
         for (let i = 0; i < lb.leaderBoard.length; i++) {
           if (lb.leaderBoard[i][1] > sec) {
             checkIndex = i;
             break;
           }
         }
-        if (checkIndex < 5) {
+        if (checkIndex < 10) {
           const resLbRaw = await fetch("/saveToLeaderBoard", {
             method: "POST",
             headers: {
