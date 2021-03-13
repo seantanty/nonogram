@@ -2,16 +2,15 @@ console.log("Leader board!");
 
 /*display popular boards*/
 const divBoards = document.querySelector("#boards");
-const authAnchor = document.querySelector("#authAnchor");
 
 function tableCreate(lb, divBoard) {
-  var tbl = document.createElement("table");
+  let tbl = document.createElement("table");
   tbl.style.width = "100%";
   tbl.setAttribute("border", "1");
-  var tbdy = document.createElement("tbody");
-
-  var tr = document.createElement("tr");
-  var td = document.createElement("td");
+  let tbdy = document.createElement("tbody");
+  
+  let tr = document.createElement("tr");
+  let td = document.createElement("td");
   td.appendChild(document.createTextNode("Rank"));
   tr.appendChild(td);
   td = document.createElement("td");
@@ -22,16 +21,16 @@ function tableCreate(lb, divBoard) {
   tr.appendChild(td);
   tbdy.appendChild(tr);
 
-  for (var i = 0; i < lb.length; i++) {
+  for (let i = 0; i < lb.length; i++) {
     tr = document.createElement("tr");
     td = document.createElement("td");
     td.appendChild(document.createTextNode(i + 1));
     tr.appendChild(td);
-    for (var j = 0; j < 2; j++) {
+    for (let j = 0; j < 2; j++) {
       td = document.createElement("td");
       td.appendChild(document.createTextNode(lb[i][j]));
       tr.appendChild(td);
-    }
+    }     
     tbdy.appendChild(tr);
   }
   tbl.appendChild(tbdy);
@@ -40,6 +39,7 @@ function tableCreate(lb, divBoard) {
 
 function renderBoard(puzzle) {
   const divBoard = document.createElement("div");
+  divBoard.innerHTML = "";
 
   divBoard.className = "board p-1 col-3";
 
@@ -53,54 +53,76 @@ function renderBoard(puzzle) {
   divBoards.appendChild(divBoard);
 }
 
-async function reloadBoards() {
+async function reloadBoards(){
   divBoards.innerHTML = "";
   const resRaw = await fetch("/getPuzzles");
   const res = await resRaw.json();
   console.log("Got data", res);
 
   res.puzzles.forEach(renderBoard);
+
+  //const resSearchRaw = await fetch("/searchBoard");
+  //if (resSearchRaw) {
+  //const resSearch = await resSearchRaw.json();
+  //console.log("Got search data", resSearch);
+  //renderBoard(resSearch.puzzle);
+  //}
 }
 
 reloadBoards();
 
+
+
 /*Display search board if event invokes*/
-//var smit = document.getElementById("smit");
+let formPuzzle = document.getElementById("searchForm");
+formPuzzle.addEventListener("submit", displaySearchBoard);
 
-async function displaySearchBoard() {
-  const resRaw = await fetch("/searchBoard");
+
+async function displaySearchBoard(event) {
+  event.preventDefault();
+
+  let puzzleId = document.getElementById("puzzleid").value;
+  console.log("Puzzle id: ", puzzleId);
+
+  const resRaw = await fetch("/searchBoard", {
+    method: "GET",
+    headers : { 
+      "Content-Type": "application/json",
+    },
+    query:JSON.stringify({puzzleid: puzzleId})
+  });
+
+  //const puzzleIdReq = req.body.puzzleid;
+  
+
   const res = await resRaw.json();
-  console.log("Got search data", res);
+  console.log("Got puzzle id", res);
+  
 
-  renderBoard(res.puzzle);
+  //console.log("Got search data", res);
+
+  //renderBoard(res.puzzle);
 }
 
-//smit.addEventListener("click", displaySearchBoard, false);
+//displaySearchBoard();
+
+
+
+
+
+
+
+
+
+
+
+
 
 //function displayBoard(board) {}
 
-//add login/logout button
-async function appendAuth() {
-  authAnchor.innerHTML = "";
-  const userRaw = await fetch("/getUser");
-  const user = await userRaw.json();
 
-  console.log("Check user", user);
 
-  if (user.username != null) {
-    const logout = document.createElement("a");
-    let logoutText = document.createTextNode("LogOut");
-    logout.appendChild(logoutText);
-    logout.setAttribute("class", "btn btn-outline-primary");
-    logout.setAttribute("href", "/logout");
-    authAnchor.appendChild(logout);
-  } else {
-    const login = document.createElement("a");
-    let loginText = document.createTextNode("Login");
-    login.appendChild(loginText);
-    login.setAttribute("class", "btn btn-outline-primary");
-    login.setAttribute("href", "/login.html");
-    authAnchor.appendChild(login);
-  }
-}
-appendAuth();
+
+
+
+
