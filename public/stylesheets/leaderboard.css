@@ -1,4 +1,5 @@
 body {
+  padding: 25px;
   font: 14px Lucida Grande", Helvetica, Arial, sans-serif;
   background: #f2f2f2;
 }
@@ -15,12 +16,12 @@ body {
   display: flex;
 }
 
-.puzzleid {
+#puzzleid {
   border: 3px solid #00B4CC;
-  border-right: none;
+  /*border-right: none;*/
   height: 36px;
   border-radius: 5px 0 0 5px;
-  outline: none;
+  /*outline: none;*/
   color: #9DBFAF;
 }
 
@@ -32,7 +33,7 @@ body {
   width: 40px;
   height: 36px;
   border: 1px solid #00B4CC;
-  border-left: none;
+  /*border-left: none;*/
   background: #00B4CC;
   text-align: center;
   color: #fff;
