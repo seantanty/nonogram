@@ -123,7 +123,7 @@ function MyDB() {
     }
   };
 
-  myDB.findUserByUserName = async (query = {}) => {
+  myDB.findUserByUserName = async (query = {}, done) => {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
