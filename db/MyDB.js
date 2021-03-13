@@ -21,7 +21,13 @@ function MyDB() {
       const filesCol = db.collection("puzzles");
       const files = await filesCol
         .aggregate([
-          { $project: { leaderBoard: 1, length: { $size: "$usersPlayed" } } },
+          {
+            $project: {
+              leaderBoard: 1,
+              length: { $size: "$usersPlayed" },
+              code: 1,
+            },
+          },
           { $sort: { length: -1 } },
           { $limit: 3 },
         ])
@@ -45,7 +51,7 @@ function MyDB() {
       const db = client.db(DB_NAME);
       const filesCol = db.collection("puzzles");
       console.log("Collection ready, querying with id: ", query);
-      const files = await filesCol.find({ _id: ObjectId(query) }).toArray();
+      const files = await filesCol.find({ code: query }).toArray();
       console.log("Got the puzzle", files);
       return files[0];
     } finally {
@@ -74,26 +80,6 @@ function MyDB() {
         files[i] = file;
       }
 
-      console.log("Got files", files);
-
-      return files;
-    } finally {
-      console.log("Closing the connection");
-      client.close();
-    }
-  };
-
-  myDB.getFiles = async (query = {}) => {
-    let client;
-    try {
-      client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
-      await client.connect();
-      console.log("Connected!");
-      const db = client.db(DB_NAME);
-      const filesCol = db.collection("testingdata");
-      console.log("Collection ready, querying with ", query);
-      const files = await filesCol.find(query).toArray();
       console.log("Got files", files);
 
       return files;
@@ -170,8 +156,7 @@ function MyDB() {
     }
   };
 
-  //pending delete
-  myDB.getUserProfilePage = async (query = {}) => {
+  myDB.saveToLeaderBoard = async (query = {}) => {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
@@ -179,21 +164,67 @@ function MyDB() {
       await client.connect();
       console.log("Connected!");
       const db = client.db(DB_NAME);
-      const userCol = db.collection("Users");
-      console.log("Collection ready, querying with ", query);
-      const data = await userCol.find(query).toArray();
+      const puzzleCol = db.collection("puzzles");
+      let puzId = new ObjectId(query._id);
+      console.log("Collection ready, querying with ", { _id: puzId });
+      const data = await puzzleCol.find({ _id: puzId }).toArray();
       console.log("Got user", data);
 
-      //create page element
-      let divOut = document.createElement("div");
-      let title = document.createElement("h1");
-      let titleText = document.createTextNode(
-        "Signed in as" + data[0].user.username
-      );
-      title.appendChild(titleText);
-      divOut.appendChild(title);
+      let res = null;
+      let dbLb = data[0].leaderBoard;
 
-      return divOut;
+      if (
+        query.index == 6 ||
+        query.index == dbLb.length ||
+        dbLb.length == undefined
+      ) {
+        res = await db.collection("puzzles").updateOne(
+          { _id: data[0]._id },
+          {
+            $push: { leaderBoard: { 0: query.username, 1: query.time } },
+          }
+        );
+      } else {
+        if (query.trim == true) {
+          let pos = query.index - (dbLb.length - 1);
+          res = await db.collection("puzzles").updateOne(
+            { _id: data[0]._id },
+            {
+              $push: {
+                leaderBoard: {
+                  gameId: query.username,
+                  time: query.time,
+                  $position: pos,
+                },
+              },
+            }
+          );
+          res = await db.collection("puzzles").updateOne(
+            { _id: data[0]._id },
+            {
+              $pop: {
+                leaderBoard: 1,
+              },
+            }
+          );
+        } else {
+          let pos = query.index - (dbLb.length - 1);
+          res = await db.collection("puzzles").updateOne(
+            { _id: data[0]._id },
+            {
+              $push: {
+                leaderBoard: {
+                  gameId: query.username,
+                  time: query.time,
+                  $position: pos,
+                },
+              },
+            }
+          );
+        }
+      }
+      console.log("result saved as " + query._id + " " + query.time);
+      return res;
     } finally {
       console.log("Closing the connection");
       client.close();
@@ -209,40 +240,72 @@ function MyDB() {
       console.log("Connected!");
       const db = client.db(DB_NAME);
       const userCol = db.collection("Users");
-      console.log("Collection ready, querying with ", query.username);
-      const data = await userCol.find(query.username).toArray();
+      let findUserQuery = { username: query.username };
+      console.log("Collection ready, querying with ", findUserQuery);
+      const data = await userCol.find(findUserQuery).toArray();
       console.log("Got user", data);
 
-      let res = null;
+      let res = { result: "No need to update" };
       let games = data[0].played;
 
       //if time is better then current or there is no time yet
       if (games.length == 0) {
         //add puzzleId with time to array
-        db.collection("Users").update(
+        res = await db.collection("Users").updateOne(
           { _id: data[0]._id },
-          { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+          {
+            $push: { played: { gameId: query.puzzleCode, time: query.time } },
+          }
         );
+        console.log("result saved as " + query.puzzleCode + " " + query.time);
       } else {
         let index = null;
         for (let i = 0; i < games.length; i++) {
-          if (games[i].gameId == query.puzzleId) {
+          if (games[i].gameId == query.puzzleCode) {
             index = i;
             break;
           }
         }
-        if (index) {
-          //replace existing puzzleId's time
-          db.collection("Users").updateOne(
+        console.log(
+          "index checking " + index + " " + games[index].time + " " + query.time
+        );
+        console.log(query.time < games[index].time);
+        console.log(index != null);
+        if (index != null) {
+          console.log("herrrrrrr");
+          if (query.time < games[index].time) {
+            //replace existing puzzleId's time
+            let updateQuery = {
+              _id: data[0]._id,
+              "played.gameId": query.puzzleCode,
+            };
+            let updateDoc = {
+              $set: { "played.$.time": query.time },
+            };
+            res = await db
+              .collection("Users")
+              .updateOne(updateQuery, updateDoc);
+            console.log(
+              "result saved as " + query.puzzleCode + " " + query.time
+            );
+          }
+        } else if (index == null) {
+          //first time play game, add puzzleId with time to array
+          res = await db.collection("Users").updateOne(
             { _id: data[0]._id },
-            { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+            {
+              $push: { played: { gameId: query.puzzleCode, time: query.time } },
+            }
           );
-        } else {
-          //first time paly game, add puzzleId with time to array
-          db.collection("Users").update(
+          console.log("result saved as " + query.puzzleCode + " " + query.time);
+        } else if (games.length == undefined) {
+          res = await db.collection("Users").updateOne(
             { _id: data[0]._id },
-            { $push: { played: { gameId: query.puzzleId, time: query.time } } }
+            {
+              $push: { played: { gameId: query.puzzleCode, time: query.time } },
+            }
           );
+          console.log("result saved as " + query.puzzleCode + " " + query.time);
         }
       }
       return res;

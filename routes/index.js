@@ -121,10 +121,32 @@ router.post("/searchBoard", async (req, res) => {
     const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
     const leaderBoard = {
-      puzzle: puzzle._id,
+      puzzle: puzzle.code,
       leaderboard: puzzle.leaderBoard,
     };
     res.send(leaderBoard);
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.post("/saveTimeToUser", async (req, res) => {
+  console.log("save time", req.body);
+  try {
+    const saveTime = await myDB.saveTimeToUser(req.body);
+    res.send(saveTime);
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.post("/saveToLeaderBoard", async (req, res) => {
+  console.log("save to leaderboard", req.body);
+  try {
+    const saveLB = await myDB.saveToLeaderBoard(req.body);
+    res.send(saveLB);
   } catch (e) {
     console.log("Error", e);
     res.status(400).send({ err: e });

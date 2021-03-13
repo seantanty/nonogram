@@ -44,7 +44,7 @@ function renderBoard(puzzle) {
   divBoard.className = "board p-1 col-3";
 
   const divName = document.createElement("div");
-  divName.textContent = puzzle._id;
+  divName.textContent = puzzle.code;
   divBoard.appendChild(divName);
 
   // get leader board table

@@ -123,45 +123,97 @@ async function play() {
 
     console.log("Check user", user);
 
-    let lb = puzzle.leaderBoard;
-    console.log(sec);
+    let lb = puzzles[idx][0];
+    console.log(lb);
+    console.log("Time stop" + sec);
 
-    // if (user.username != null) {
-    //   //first store time and puzzle id to user
-    //   const request = {
-    //     username: user.username,
-    //     puzzleId: idx,
-    //     time: totalSeconds,
-    //   };
-    //   const saveToUser = await myDB.saveTimeToUser(request);
-    //   //if leaderboard.size<5, change res.leaderboard and record to leaderboard
-    //   if (lb.length < 5) {
-    //     if (lb.length == 0) {
-    //       //empty, just store it
-    //     } else {
-    //       let checkIndex = 6;
-    //       for (let i = 0; i < lb.length; i++) {
-    //         if (lb[i] > totalSeconds) {
-    //           checkIndex = i;
-    //           break;
-    //         }
-    //       }
-    //       //update
-    //       //4, 0 1 2 3 ,6
-    //     }
-    //   } else {
-    //     let checkIndex = 6;
-    //     for (let i = 0; i < lb.length; i++) {
-    //       if (lb[i] > sec) {
-    //         checkIndex = i;
-    //         break;
-    //       }
-    //     }
-    //     if (checkIndex < 5) {
-    //       //update
-    //     }
-    //   }
-    // }
+    if (user.username != null) {
+      //first store time and puzzle id to user
+      const resRaw = await fetch("/saveTimeToUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          puzzleCode: lb.code,
+          time: sec,
+        }),
+      });
+      const res = await resRaw.json();
+      console.log(res);
+      //if leaderboard.size<5, change res.leaderboard and record to leaderboard
+      if (lb.leaderBoard.length < 5) {
+        if (lb.leaderBoard.length == 0) {
+          const resLbRaw = await fetch("/saveToLeaderBoard", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: user.username,
+              puzzleId: lb._id,
+              time: sec,
+              index: 6,
+              trim: false,
+            }),
+          });
+          const resLb = await resLbRaw.json();
+          console.log(resLb);
+        } else {
+          let checkIndex = 7;
+          for (let i = 0; i < lb.leaderBoard.length; i++) {
+            if (lb.leaderBoard[i][1] > totalSeconds) {
+              checkIndex = i;
+              break;
+            }
+          }
+          if (checkIndex == 7) {
+            checkIndex = lb.leaderBoard.length;
+          }
+          const resLbRaw = await fetch("/saveToLeaderBoard", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: user.username,
+              _id: lb._id,
+              time: sec,
+              index: checkIndex,
+              trim: false,
+            }),
+          });
+          const resLb = await resLbRaw.json();
+          console.log(resLb);
+        }
+      } else {
+        let checkIndex = 6;
+        for (let i = 0; i < lb.leaderBoard.length; i++) {
+          if (lb.leaderBoard[i][1] > sec) {
+            checkIndex = i;
+            break;
+          }
+        }
+        if (checkIndex < 5) {
+          const resLbRaw = await fetch("/saveToLeaderBoard", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: user.username,
+              _id: lb._id,
+              time: sec,
+              index: checkIndex,
+              trim: true,
+            }),
+          });
+          const resLb = await resLbRaw.json();
+          console.log(resLb);
+        }
+      }
+    }
     //display user's time and leaderboard
     //You finished puzzle in xxx seconds
     //show the leaderboard
