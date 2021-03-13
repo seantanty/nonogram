@@ -11,12 +11,15 @@ function tableCreate(lb, divBoard) {
 
   let tr = document.createElement("tr");
   let td = document.createElement("td");
+  td.style.fontWeight = "bold";
   td.appendChild(document.createTextNode("Rank"));
   tr.appendChild(td);
   td = document.createElement("td");
+  td.style.fontWeight = "bold";
   td.appendChild(document.createTextNode("User"));
   tr.appendChild(td);
   td = document.createElement("td");
+  td.style.fontWeight = "bold";
   td.appendChild(document.createTextNode("Time"));
   tr.appendChild(td);
   tbdy.appendChild(tr);
@@ -37,20 +40,22 @@ function tableCreate(lb, divBoard) {
   divBoard.appendChild(tbl);
 }
 
-function renderBoard(puzzle) {
+function renderBoard(puzzle, divLocation) {
   const divBoard = document.createElement("div");
   divBoard.innerHTML = "";
 
   divBoard.className = "board p-1 col-3";
 
   const divName = document.createElement("div");
+  //divName.style.color = "#ffa500";
+  divName.style.fontWeight = "50%";
   divName.textContent = puzzle._id;
   divBoard.appendChild(divName);
 
   // get leader board table
   tableCreate(puzzle.leaderBoard, divBoard);
 
-  divBoards.appendChild(divBoard);
+  divLocation.appendChild(divBoard);
 }
 
 async function reloadBoards() {
@@ -59,19 +64,16 @@ async function reloadBoards() {
   const res = await resRaw.json();
   console.log("Got data", res);
 
-  res.puzzles.forEach(renderBoard);
+  for (let i = 0; i < 3; i++){
+    renderBoard(res.puzzles[i], divBoards);
+  }
 
-  //const resSearchRaw = await fetch("/searchBoard");
-  //if (resSearchRaw) {
-  //const resSearch = await resSearchRaw.json();
-  //console.log("Got search data", resSearch);
-  //renderBoard(resSearch.puzzle);
-  //}
+  //res.puzzles.forEach(renderBoard, divBoards);
 }
 
 reloadBoards();
 
-/*Display search board if event invokes*/
+/*Display search board*/
 let formPuzzle = document.getElementById("searchForm");
 formPuzzle.addEventListener("submit", displaySearchBoard);
 
@@ -89,16 +91,17 @@ async function displaySearchBoard(event) {
     body: JSON.stringify({ puzzleid: puzzleId }),
   });
 
-  //const puzzleIdReq = req.body.puzzleid;
 
   const res = await resRaw.json();
-  console.log("Got puzzle id", res);
+  console.log("Got search data", res);
 
-  //console.log("Got search data", res);
+  const divSearchBoard = document.querySelector("#boardSeach");
+  let h3 = document.createElement("h3");
+  h3.innerHTML = "Search By Id";
+  divSearchBoard.appendChild(h3);
+  renderBoard(res, divSearchBoard);
 
-  //renderBoard(res.puzzle);
 }
 
-//displaySearchBoard();
 
-//function displayBoard(board) {}
+
