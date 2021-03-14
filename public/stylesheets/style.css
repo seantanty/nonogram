@@ -1,13 +1,10 @@
 body {
-    /* background-color: #EDDCCB; */
-    font-family: helvetica, arial, sans-serif;
-
+    background: #eaeaea;
 }
 
 #main {
     margin-top: 15px;
     margin-left: 15px;
-    /*-top: 100px;*/
 }
 
 .puzzleBody {
@@ -15,7 +12,7 @@ body {
 }
 
 #puzzlesec {
-    padding-left: 100px;
+    padding-left: 200px;
 }
 
 table {
