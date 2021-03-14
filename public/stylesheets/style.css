@@ -36,6 +36,7 @@ table, tr, td {
 
 #puzzleid {
     width: 135px;
+    border: 1.5px solid;
 }
 
 #submit, #restart {
