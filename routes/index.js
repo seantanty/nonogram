@@ -123,6 +123,7 @@ router.post("/searchBoard", async (req, res) => {
     let leaderBoard = {
       code: puzzle.code,
       leaderBoard: puzzle.leaderBoard,
+      info: puzzle.info,
       success: true,
     };
     if (puzzle == null) {
