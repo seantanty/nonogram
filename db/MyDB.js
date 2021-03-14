@@ -192,7 +192,7 @@ function MyDB() {
             {
               $push: {
                 leaderBoard: {
-                  $each: [{ gameId: query.username, time: query.time }],
+                  $each: [{ 0: query.username, 1: query.time }],
                   $position: pos,
                 },
               },
@@ -213,7 +213,7 @@ function MyDB() {
             {
               $push: {
                 leaderBoard: {
-                  $each: [{ gameId: query.username, time: query.time }],
+                  $each: [{ 0: query.username, 1: query.time }],
                   $position: pos,
                 },
               },
