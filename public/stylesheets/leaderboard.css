@@ -85,24 +85,21 @@ body .fc-icon {
 }
 
 .puzzleid {
-  border: 3px solid #00b4cc;
-  /*border-right: none;*/
+  border: 2px solid #696969;
   height: 36px;
   border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
+  /*outline: none;*/
 }
 
 .puzzleid:focus {
-  color: #00b4cc;
+  /*color: #00b4cc;*/
 }
 
 .searchButton {
-  width: 40px;
+  width: 36px;
   height: 36px;
-  border: 1px solid #00b4cc;
-  /*border-left: none;*/
-  background: #00b4cc;
+  border: 1px solid #696969;
+  background: #696969;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
