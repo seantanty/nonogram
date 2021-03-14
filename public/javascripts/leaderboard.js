@@ -64,7 +64,7 @@ async function reloadBoards() {
   const res = await resRaw.json();
   console.log("Got data", res);
 
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++) {
     renderBoard(res.puzzles[i], divBoards);
   }
 
@@ -91,7 +91,6 @@ async function displaySearchBoard(event) {
     body: JSON.stringify({ puzzleid: puzzleId }),
   });
 
-
   const res = await resRaw.json();
   console.log("Got search data", res);
 
@@ -102,6 +101,3 @@ async function displaySearchBoard(event) {
   divSearchBoard.appendChild(h3);
   renderBoard(res, divSearchBoard);
 }
-
-
-
