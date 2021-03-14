@@ -1,22 +1,38 @@
 const signedIn = document.querySelector("#signedIn");
-const playedList = document.querySelector("#playedList");
+const playedTable = document.querySelector("#playedTable");
 const authAnchor = document.querySelector("#authAnchor");
+let tableIndex = 1;
 
 function renderUsername(username) {
-  let title = document.createElement("h1");
-  let titleText = document.createTextNode("Signed in as " + username);
+  let title = document.createElement("h2");
+  let titleText = document.createTextNode("Hello, " + username.split("@")[0]);
+  title.setAttribute("class", "m-t-sm");
   title.appendChild(titleText);
   signedIn.appendChild(title);
 }
 
-function renderPlayedList(played) {
-  let list = document.createElement("li");
-  let listText = document.createTextNode(played.gameId + "   " + played.time);
-  list.appendChild(listText);
-  playedList.appendChild(list);
+function renderPlayedTableItem(played) {
+  let tableRow = document.createElement("tr");
+  let tableNum = document.createElement("th");
+  tableNum.setAttribute("scope", "row");
+  let tablePuzzleId = document.createElement("td");
+  let tableTime = document.createElement("td");
+
+  let indexText = document.createTextNode(tableIndex);
+  let puzzleIdText = document.createTextNode(played.gameId);
+  let timeText = document.createTextNode(played.time + " seconds");
+  tableNum.appendChild(indexText);
+  tablePuzzleId.appendChild(puzzleIdText);
+  tableTime.appendChild(timeText);
+
+  tableRow.appendChild(tableNum);
+  tableRow.appendChild(tablePuzzleId);
+  tableRow.appendChild(tableTime);
+  playedTable.appendChild(tableRow);
+  tableIndex += 1;
 }
 
-async function getUsername() {
+async function renderProfile() {
   signedIn.innerHTML = "";
   authAnchor.innerHTML = "";
   const resRaw = await fetch("/getUser");
@@ -28,7 +44,7 @@ async function getUsername() {
   res.played.sort(function (a, b) {
     return a.gameId - b.gameId;
   });
-  res.played.forEach(renderPlayedList);
+  res.played.forEach(renderPlayedTableItem);
 
   if (res.username != null) {
     const logout = document.createElement("a");
@@ -49,4 +65,4 @@ async function getUsername() {
   console.log(res);
 }
 
-getUsername();
+renderProfile();
