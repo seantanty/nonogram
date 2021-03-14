@@ -2,10 +2,6 @@ body {
   background: #eaeaea;
 }
 
-.coming-soon-cover img,
-.email-detail-attachment .email-attachment .document-file img,
-.email-sender-img img,
-.friend-list .friend-img img,
 .profile-header-img img {
   max-width: 100%;
 }
@@ -14,8 +10,9 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .profile-header .profile-header-cover {
-  background: url(https://bootdey.com/img/Content/bg1.jpg) center no-repeat;
+  background: url(https://i.imgur.com/47nztwF.jpg) center no-repeat;
   background-size: 100% auto;
   position: absolute;
   left: 0;
@@ -23,6 +20,7 @@ body {
   top: 0;
   bottom: 0;
 }
+
 .profile-header .profile-header-cover:before {
   content: "";
   position: absolute;
@@ -36,38 +34,13 @@ body {
     rgba(0, 0, 0, 0.85) 100%
   );
 }
+
 .profile-header .profile-header-content,
-.profile-header .profile-header-tab,
 .profile-header-img,
 body .fc-icon {
   position: relative;
 }
-.profile-header .profile-header-tab {
-  background: #fff;
-  list-style-type: none;
-  margin: -1.25rem 0 0;
-  padding: 0 0 0 8.75rem;
-  border-bottom: 1px solid #c8c7cc;
-  white-space: nowrap;
-}
-.profile-header .profile-header-tab > li {
-  display: inline-block;
-  margin: 0;
-}
-.profile-header .profile-header-tab > li > a {
-  display: block;
-  color: #000;
-  line-height: 1.25rem;
-  padding: 0.625rem 1.25rem;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.75rem;
-  border: none;
-}
-.profile-header .profile-header-tab > li.active > a,
-.profile-header .profile-header-tab > li > a.active {
-  color: #007aff;
-}
+
 .profile-header .profile-header-content:after,
 .profile-header .profile-header-content:before {
   content: "";
@@ -78,11 +51,7 @@ body .fc-icon {
   color: #fff;
   padding: 1.25rem;
 }
-body .fc th a,
-body .fc-ltr .fc-basic-view .fc-day-top .fc-day-number,
-body .fc-widget-header a {
-  color: #000;
-}
+
 .profile-header-img {
   float: left;
   width: 7.5rem;
@@ -99,52 +68,4 @@ body .fc-widget-header a {
 .profile-header-info h2 {
   font-weight: 500;
   margin-bottom: 0.3125rem;
-}
-.profile-container {
-  padding: 1.5625rem;
-}
-
-.profile-info-list {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-.friend-list,
-.img-grid-list {
-  margin: -1px;
-  list-style-type: none;
-}
-.profile-info-list > li.title {
-  font-size: 0.625rem;
-  font-weight: 700;
-  color: #8a8a8f;
-  padding: 0 0 0.3125rem;
-}
-.profile-info-list > li + li.title {
-  padding-top: 1.5625rem;
-}
-.profile-info-list > li {
-  padding: 0.625rem 0;
-}
-.profile-info-list > li .field {
-  font-weight: 700;
-}
-.profile-info-list > li .value {
-  color: #666;
-}
-.profile-info-list > li.img-list a {
-  display: inline-block;
-}
-.profile-info-list > li.img-list a img {
-  max-width: 2.25rem;
-  -webkit-border-radius: 2.5rem;
-  -moz-border-radius: 2.5rem;
-  border-radius: 2.5rem;
-}
-.coming-soon-cover img,
-.email-detail-attachment .email-attachment .document-file img,
-.email-sender-img img,
-.friend-list .friend-img img,
-.profile-header-img img {
-  max-width: 100%;
 }
