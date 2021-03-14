@@ -1,4 +1,6 @@
 const authAnchor = document.querySelector("#authAnchor");
+let totalSeconds = 0;
+
 
 //add login/logout button to NavBar
 async function appendAuth() {
@@ -25,7 +27,6 @@ async function appendAuth() {
   }
 }
 
-let totalSeconds = 0;
 async function play() {
   // get a puzzle
   let puzzles, puzzle;
@@ -45,7 +46,6 @@ async function play() {
   let currentSelectState = undefined;
 
   let timerVar;
-
 
   document.getElementById("searchForm").addEventListener("submit", getPlaySave);
   
@@ -272,11 +272,9 @@ async function play() {
       divTime.textContent = "You finished the puzzle in " + sec + " seconds.";
       divLeaderBoard.appendChild(divTime);
       
-      let p = document.createElement("p");
-      p.style.textalign = "center";
-      p.style.fontWeight = 1.1;
-      p.innerHTML = "Leader Board";
-      divLeaderBoard.appendChild(p);
+      const divBoardName = document.createElement("div");
+      divBoardName.innerHTML = "Leader Board";
+      divLeaderBoard.appendChild(divBoardName);
 
       console.log("Updated puzzle: ", lb);
       renderBoard(lb, divLeaderBoard);
@@ -286,7 +284,11 @@ async function play() {
     function tableCreate(lb, divBoard) {
       let tbl = document.createElement("table");
       tbl.style.width = "100%";
-      tbl.setAttribute("border", "1");
+      tbl.style.width = "100%";
+      tbl.setAttribute(
+        "class",
+        "table col-sm table-striped table-hover table-bordered border-primary"
+      );
       let tbdy = document.createElement("tbody");
 
       let tr = document.createElement("tr");
