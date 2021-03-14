@@ -50,7 +50,7 @@ function MyDB() {
       console.log("Connected!");
       const db = client.db(DB_NAME);
       const filesCol = db.collection("puzzles");
-      console.log("Collection ready, querying with id: ", query);
+      console.log("Collection ready, querying with id: ", { code: query });
       const files = await filesCol.find({ code: query }).toArray();
       console.log("Got the puzzle", files);
       return files[0];
