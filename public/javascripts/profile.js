@@ -3,6 +3,7 @@ const playedTable = document.querySelector("#playedTable");
 const authAnchor = document.querySelector("#authAnchor");
 let tableIndex = 1;
 
+//render username to show in header-container
 function renderUsername(username) {
   let title = document.createElement("h2");
   let titleText = document.createTextNode("Hello, " + username.split("@")[0]);
@@ -11,6 +12,7 @@ function renderUsername(username) {
   signedIn.appendChild(title);
 }
 
+//render played table
 function renderPlayedTableItem(played) {
   let tableRow = document.createElement("tr");
   let tableNum = document.createElement("th");
@@ -38,14 +40,16 @@ async function renderProfile() {
   const resRaw = await fetch("/getUser");
   const res = await resRaw.json();
 
-  console.log("Got data", res);
-
+  //add username display
   renderUsername(res.username);
+
+  //add played table
   res.played.sort(function (a, b) {
     return a.gameId - b.gameId;
   });
   res.played.forEach(renderPlayedTableItem);
 
+  //add login/logout button to NavBar
   if (res.username != null) {
     const logout = document.createElement("a");
     let logoutText = document.createTextNode("LogOut");
@@ -61,8 +65,6 @@ async function renderProfile() {
     login.setAttribute("href", "/login.html");
     authAnchor.appendChild(login);
   }
-  //res.user will get user info
-  console.log(res);
 }
 
 renderProfile();

@@ -120,10 +120,14 @@ router.post("/searchBoard", async (req, res) => {
   try {
     const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
-    const leaderBoard = {
-      code: puzzle.code,
-      leaderBoard: puzzle.leaderBoard,
-    };
+    let leaderBoard = { success: false };
+    if (puzzle != null) {
+      leaderBoard = {
+        success: true,
+        code: puzzle.code,
+        leaderBoard: puzzle.leaderBoard,
+      };
+    }
     res.send(leaderBoard);
   } catch (e) {
     console.log("Error", e);

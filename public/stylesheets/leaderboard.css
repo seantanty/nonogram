@@ -1,6 +1,75 @@
 body {
-  font: 14px Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #f2f2f2;
+  background: #eaeaea;
+}
+
+.profile-header-img img {
+  max-width: 100%;
+}
+
+.profile-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-header .profile-header-cover {
+  background: url(https://i.imgur.com/47nztwF.jpg) center no-repeat;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.profile-header .profile-header-cover:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.profile-header .profile-header-content,
+.profile-header-img,
+body .fc-icon {
+  position: relative;
+}
+
+.profile-header .profile-header-content:after,
+.profile-header .profile-header-content:before {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.profile-header .profile-header-content {
+  color: #fff;
+  padding: 1.25rem;
+}
+
+.profile-header-img {
+  float: left;
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+  z-index: 10;
+  margin: 0 1.25rem -1.25rem 0;
+  padding: 0.1875rem;
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+
+.profile-header-info h2 {
+  font-weight: 500;
+  margin-bottom: 0.3125rem;
 }
 
 #boardBody {
@@ -9,31 +78,31 @@ body {
 
 .search {
   width: 100%;
-  padding-top:15px;
+  padding-top: 15px;
   margin-right: 20px;
   text-align: right;
   display: flex;
 }
 
 .puzzleid {
-  border: 3px solid #00B4CC;
+  border: 3px solid #00b4cc;
   /*border-right: none;*/
   height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9DBFAF;
+  color: #9dbfaf;
 }
 
-.puzzleid:focus{
-  color: #00B4CC;
+.puzzleid:focus {
+  color: #00b4cc;
 }
 
 .searchButton {
   width: 40px;
   height: 36px;
-  border: 1px solid #00B4CC;
+  border: 1px solid #00b4cc;
   /*border-left: none;*/
-  background: #00B4CC;
+  background: #00b4cc;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
@@ -41,21 +110,10 @@ body {
   font-size: 20px;
 }
 
-table, tr, td {
-  /*border: 1px solid black;*/
-  border-collapse: collapse;
-  border-radius: 2px;
-  border-style: hidden;
-  box-shadow: 0 0 0 1px #666;
-}
-
-.searcgBoardBody {
+.searchBoardBody {
   padding-top: 25px;
 }
 
-/*
-td {
-  border: 1px solid #ccc;
+#boardTitle {
+  margin-top: auto;
 }
-*/
-

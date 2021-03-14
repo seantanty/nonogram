@@ -1,7 +1,6 @@
-console.log("Front!");
-
 const authAnchor = document.querySelector("#authAnchor");
 
+//add login/logout button to NavBar
 async function appendAuth() {
   authAnchor.innerHTML = "";
   const userRaw = await fetch("/getUser");

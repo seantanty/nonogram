@@ -1,12 +1,39 @@
-console.log("Leader board!");
-
-/*display popular boards*/
+const authAnchor = document.querySelector("#authAnchor");
 const divBoards = document.querySelector("#boards");
+const formPuzzle = document.getElementById("searchForm");
+formPuzzle.addEventListener("submit", displaySearchBoard);
+
+//add login/logout button to NavBar
+async function appendAuth() {
+  authAnchor.innerHTML = "";
+  const userRaw = await fetch("/getUser");
+  const user = await userRaw.json();
+
+  if (user.username != null) {
+    const logout = document.createElement("a");
+    let logoutText = document.createTextNode("LogOut");
+    logout.appendChild(logoutText);
+    logout.setAttribute("class", "btn btn-outline-primary");
+    logout.setAttribute("href", "/logout");
+    authAnchor.appendChild(logout);
+  } else {
+    const login = document.createElement("a");
+    let loginText = document.createTextNode("Login");
+    login.appendChild(loginText);
+    login.setAttribute("class", "btn btn-outline-primary");
+    login.setAttribute("href", "/login.html");
+    authAnchor.appendChild(login);
+  }
+}
 
 function tableCreate(lb, divBoard) {
   let tbl = document.createElement("table");
   tbl.style.width = "100%";
-  tbl.setAttribute("border", "1");
+  // tbl.setAttribute("border", "1");
+  tbl.setAttribute(
+    "class",
+    "table col-sm table-striped table-hover table-bordered border-primary"
+  );
   let tbdy = document.createElement("tbody");
 
   let tr = document.createElement("tr");
@@ -44,7 +71,7 @@ function renderBoard(puzzle, divLocation) {
   const divBoard = document.createElement("div");
   divBoard.innerHTML = "";
 
-  divBoard.className = "board p-1 col-3";
+  divBoard.className = "board p-1 col-4";
 
   const divName = document.createElement("div");
   //divName.style.color = "#ffa500";
@@ -62,26 +89,17 @@ async function reloadBoards() {
   divBoards.innerHTML = "";
   const resRaw = await fetch("/getPuzzles");
   const res = await resRaw.json();
-  console.log("Got data", res);
 
   for (let i = 0; i < 3; i++) {
     renderBoard(res.puzzles[i], divBoards);
   }
-
   //res.puzzles.forEach(renderBoard, divBoards);
 }
-
-reloadBoards();
-
-/*Display search board*/
-let formPuzzle = document.getElementById("searchForm");
-formPuzzle.addEventListener("submit", displaySearchBoard);
 
 async function displaySearchBoard(event) {
   event.preventDefault();
 
   let puzzleId = document.getElementById("puzzleid").value;
-  console.log("Puzzle id: ", puzzleId);
 
   const resRaw = await fetch("/searchBoard", {
     method: "POST",
@@ -92,12 +110,21 @@ async function displaySearchBoard(event) {
   });
 
   const res = await resRaw.json();
-  console.log("Got search data", res);
 
   const divSearchBoard = document.querySelector("#boardSeach");
   divSearchBoard.innerHTML = "";
   let h3 = document.createElement("h3");
-  h3.innerHTML = "Search By Id";
-  divSearchBoard.appendChild(h3);
-  renderBoard(res, divSearchBoard);
+  h3.innerHTML = "Your search result:";
+  if (res.success == true) {
+    divSearchBoard.appendChild(h3);
+    renderBoard(res, divSearchBoard);
+  } else {
+    let h4 = document.createElement("h4");
+    h4.innerHTML = "Please enter a valid Puzzle Id.";
+    h3.appendChild(h4);
+    divSearchBoard.appendChild(h3);
+  }
 }
+
+appendAuth();
+reloadBoards();

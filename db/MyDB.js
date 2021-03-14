@@ -165,9 +165,9 @@ function MyDB() {
       console.log("Connected!");
       const db = client.db(DB_NAME);
       const puzzleCol = db.collection("puzzles");
-      let puzId = new ObjectId(query._id);
-      console.log("Collection ready, querying with ", { _id: puzId });
-      const data = await puzzleCol.find({ _id: puzId }).toArray();
+      let o_id = new ObjectId(query.puzzleId);
+      console.log("Collection ready, querying with ", { _id: o_id });
+      const data = await puzzleCol.find({ _id: o_id }).toArray();
       console.log("Got user", data);
 
       let res = null;
@@ -221,7 +221,7 @@ function MyDB() {
           );
         }
       }
-      console.log("result saved as " + query._id + " " + query.time);
+      console.log("result saved as " + query.puzzleId + " " + query.time);
       return res;
     } finally {
       console.log("Closing the connection");
@@ -264,12 +264,15 @@ function MyDB() {
             break;
           }
         }
-        console.log(
-          "index checking " + index + " " + games[index].time + " " + query.time
-        );
-        console.log(query.time < games[index].time);
-        console.log(index != null);
-        if (index != null) {
+        if (games.length == undefined) {
+          res = await db.collection("Users").updateOne(
+            { _id: data[0]._id },
+            {
+              $push: { played: { gameId: query.puzzleCode, time: query.time } },
+            }
+          );
+          console.log("result saved as " + query.puzzleCode + " " + query.time);
+        } else if (index != null) {
           console.log("herrrrrrr");
           if (query.time < games[index].time) {
             //replace existing puzzleId's time
@@ -289,14 +292,6 @@ function MyDB() {
           }
         } else if (index == null) {
           //first time play game, add puzzleId with time to array
-          res = await db.collection("Users").updateOne(
-            { _id: data[0]._id },
-            {
-              $push: { played: { gameId: query.puzzleCode, time: query.time } },
-            }
-          );
-          console.log("result saved as " + query.puzzleCode + " " + query.time);
-        } else if (games.length == undefined) {
           res = await db.collection("Users").updateOne(
             { _id: data[0]._id },
             {

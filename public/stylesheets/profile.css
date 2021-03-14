@@ -47,6 +47,7 @@ body .fc-icon {
   display: table;
   clear: both;
 }
+
 .profile-header .profile-header-content {
   color: #fff;
   padding: 1.25rem;
@@ -65,6 +66,7 @@ body .fc-icon {
   border-radius: 0.25rem;
   background: #fff;
 }
+
 .profile-header-info h2 {
   font-weight: 500;
   margin-bottom: 0.3125rem;
