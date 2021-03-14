@@ -14,6 +14,11 @@ body {
     padding-top: 15px;
 }
 
+#puzzlesec {
+    align-self: center;
+    padding-left: 100px;
+}
+
 table {
     background-color: white;
 }
@@ -99,8 +104,3 @@ tbody tr:first-child td > div {
     align-items: center;
     justify-content: flex-end;
 }
-
-
-
-
-
