@@ -49,7 +49,7 @@ function renderBoard(puzzle, divLocation) {
   const divName = document.createElement("div");
   //divName.style.color = "#ffa500";
   divName.style.fontWeight = "50%";
-  divName.textContent = puzzle._id;
+  divName.textContent = "Puzzle Id: " + puzzle.code;
   divBoard.appendChild(divName);
 
   // get leader board table
