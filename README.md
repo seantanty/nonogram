@@ -26,10 +26,10 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Screenshots
 *** 
-![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_play.png "Play")
-![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_user.png "UserLogin")
-![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_user1.png "User")
-![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_lb.png "Leaderboard")
+![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_play.png "Play")
+![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_user.png "UserLogin")
+![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_user1.png "User")
+![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_lb.png "Leaderboard")
 
 ### Features
 ***
