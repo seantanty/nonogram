@@ -10,7 +10,7 @@ Class Link: [Web Development](https://johnguerra.co/classes/webDevelopment_sprin
 Deployed to Heroku: [Link](https://morning-shelf-65761.herokuapp.com/)
 ***
 A nonogram playing web app for fun and web developement learning purposes.
-<a href="demolink">Video demo</a>
+<a href="https://www.youtube.com/watch?v=xBcZ3NBeZso">Video demo</a>
 
 ## Table of Contents
 1. [Project Objective](#project-objective)
