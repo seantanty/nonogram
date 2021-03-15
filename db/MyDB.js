@@ -3,10 +3,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 function MyDB() {
   const myDB = {};
 
-  const url =
-    "mongodb+srv://seantan:web5610dev@cluster0.u90qt.mongodb.net/test";
-  //<password>
-  // process.env.MONGO_URL || "mongodb://localhost:27017";
+  const url = process.env.MONGO_URL;
   const DB_NAME = "5610Project2";
 
   // Get popular puzzles for displaying leader boards.
