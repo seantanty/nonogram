@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">NonoGram</h1>
+# NonoGram
 Author: [Yongliang (Sean) Tan](https://seantanty.github.io/CS-5610-project1/index.html) & [Xinyi Ge](https://xinyijackiege.github.io/)\
 Class Link: [Web Development](https://johnguerra.co/classes/webDevelopment_spring_2021/)
 ***
