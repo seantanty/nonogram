@@ -15,15 +15,15 @@ A nonogram playing web app for fun and web developement learning purposes.
 
 ### Project Objective
 ***
-This project is served as the 2nd project of Web Development course. \
-It aims to create a backend application with Node + Express + Mongo and HTML5.\
-It should contains at least two web pages, at least 2 Mongo Collections and 1 form for interactions.\
+This project is served as the 2nd project of Web Development course. 
+It aims to create a backend application with Node + Express + Mongo and HTML5.
+It should contains at least two web pages, at least 2 Mongo Collections and 1 form for interactions.
 And the app is deployed by Heroku.
 
-This project is able to play different sizes of nogograms(aka Japanese Puzzles, Kare Karala!).\
-It has functions including puzzle play, user register, login, leaderboards display and search puzzle/leaderboard by id.\
+This project is able to play different sizes of nogograms(aka Japanese Puzzles, Kare Karala!).
+It has functions including puzzle play, user register, login, leaderboards display and search puzzle/leaderboard by id.
 All of them need interactions between frondend and backend, such as saving records to, and search a puzzle by puzzle id from database.  
-From the project, we learn to design app functionaities, develop web pages and interactions between frontend and backend accordingly. 
+From the project, we learn to design app functionaities, develpoment web pages and interactions between frontend and backend accordingly. 
 
 ### Screenshots
 *** 
@@ -49,11 +49,11 @@ From the project, we learn to design app functionaities, develop web pages and i
 
 ### Setup
 ***
-If you would like to explore the app, in the directory:
-$ install node
-$ npm install
-$ npm start
-go to localhost:3000 and enjoy!
+If you would like to explore the app, in the directory:\
+$ install nodejs (https://nodejs.org/en/download/package-manager/)\
+$ npm install\
+$ npm start\
+go to localhost:3000 and enjoy!\
 
 
 
