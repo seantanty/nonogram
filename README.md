@@ -33,10 +33,10 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Features
 ***
-* There are both size and puzzle id options for users to choose a prefered puzzle.\* 
+* There are both size and puzzle id options for users to choose a prefered puzzle.
 * Playing a puzzle is user friendly, with playing instructions and features, count up timer, result alert and leaderboard display.
-* Users can play without login.\
-* Records are atomatically saved for users after logging in to user profiles.\
+* Users can play without login.
+* Records are atomatically saved for users after logging in to user profiles.
 * Users can access to their user profiles and leaderboards of the puzzles.
 
 ### Technnogolies
@@ -50,10 +50,10 @@ From the project, we learn to design app functionaities, develpoment web pages a
 ### Setup
 ***
 If you would like to explore the app, in the directory:\
-$ install nodejs (https://nodejs.org/en/download/package-manager/)\
+$ install nodejs (https://nodejs.org/en/download/package-manager/)<br>
 $ npm install\
 $ npm start\
-go to localhost:3000 and enjoy!\
+go to localhost:3000 and enjoy!
 
 
 
