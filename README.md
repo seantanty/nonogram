@@ -19,7 +19,7 @@ It aims to create a backend application with Node + Express + Mongo and HTML5.
 It should contains at least two web pages, at least 2 Mongo Collections and 1 form for interactions.
 And the app is deployed by Heroku.
 
-This project is able to play different sizes of nogograms(aka Japanese Puzzles, Kare Karala!).
+This project is able to play different sizes of nonograms(aka Japanese Puzzles, Kare Karala!).
 It has functionalities including puzzle play, user authentication/authorization(register/login), leaderboards display and search puzzle/leaderboard by id.
 All of them need interactions between frondend and backend, such as saving records to, and search a puzzle by puzzle id from database.  
 From the project, we learn to design app functionaities, implement them accordingly(e.g. utilize Password, Mongo CRUD operations, AJAX Fetch and etc). 
