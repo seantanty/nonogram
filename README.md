@@ -23,7 +23,7 @@ And the app is deployed by Heroku.
 This project is able to play different sizes of nogograms(aka Japanese Puzzles, Kare Karala!).\
 It has functions including puzzle play, user register, login, leaderboards display and search puzzle/leaderboard by id.\
 All of them need interactions between frondend and backend, such as saving records to, and search a puzzle by puzzle id from database.  
-From the project, we learn to design app functionaities, develpoment web pages and interactions between frontend and backend accordingly. 
+From the project, we learn to design app functionaities, develop web pages and interactions between frontend and backend accordingly. 
 
 ### Screenshots
 *** 
