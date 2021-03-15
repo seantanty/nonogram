@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NonoGram</title>
-    <meta name="description" content="Nonogram puzzle index page." />
+    <meta name="description" content="Nonogram puzzle." />
     <meta name="author" content="Yongliang Tan & Xinyi Ge" />
     <link rel="icon" type="image/x-icon" href="../images/nono.ico" />
     <link
@@ -29,9 +29,9 @@
     </header>
 
     <div class="row">
-      <div id="main-left" class="col-8">
+      <div id="main-left" class="col-9">
         <div class="row" id="main">
-          <div class="col-3">
+          <div class="col-4">
             <form id="searchForm">
               <input
                 type="text"
@@ -46,11 +46,29 @@
             </form>
 
             <div id="timer"></div>
+            <span>Instructions:</span>
+            <ul class="instructions">
+              <li>You can play without logging in.</li>
+              <li>
+                We recommend logging in to save the record in your profile.
+              </li>
+              <li>
+                Start a puzzle with either choosing a size or searching by a
+                puzzle id.
+              </li>
+              <li>
+                Once a new game stated, to give up a game in the middle, please
+                click "New Puzzle" button at the bottom to start a new game, and
+                choose a new game option as listed above.
+              </li>
+            </ul>
+            <div class="instructions"></div>
             <div class="features">
               <span>Features:</span>
               <ul class="features">
-                <li>Mark cells you know aren't spots</li>
-                <li>Click and drag to select multiple cells at once</li>
+                <li>Count up timer.</li>
+                <li>Mark cells you know aren't spots.</li>
+                <li>Click and drag to select multiple cells at once.</li>
               </ul>
             </div>
           </div>
@@ -77,7 +95,7 @@
         </div>
       </div>
 
-      <div id="main-right" class="col-4">
+      <div id="main-right" class="col-3">
         <div class="row">
           <div id="resultsBody" class="results">
             <div id="solvedTime" class="time"></div>
