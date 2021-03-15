@@ -3,7 +3,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 function MyDB() {
   const myDB = {};
 
-  const url = process.env.MONGO_URI;
+  const url = process.env.MONGODB_URI;
   const DB_NAME = "5610Project2";
 
   // Get popular puzzles for displaying leader boards.
