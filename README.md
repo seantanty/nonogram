@@ -20,9 +20,9 @@ It should contains at least two web pages, at least 2 Mongo Collections and 1 fo
 And the app is deployed by Heroku.
 
 This project is able to play different sizes of nogograms(aka Japanese Puzzles, Kare Karala!).
-It has functions including puzzle play, user authentication/authorization(register/login), leaderboards display and search puzzle/leaderboard by id.
+It has functionalities including puzzle play, user authentication/authorization(register/login), leaderboards display and search puzzle/leaderboard by id.
 All of them need interactions between frondend and backend, such as saving records to, and search a puzzle by puzzle id from database.  
-From the project, we learn to design app functionaities, develop interactions accordingly (e.g. password, Mongo CRUD operations). 
+From the project, we learn to design app functionaities, implement them accordingly(e.g. utilize Password, Mongo CRUD operations, AJAX Fetch and etc). 
 
 ### Screenshots
 *** 
@@ -44,8 +44,9 @@ From the project, we learn to design app functionaities, develop interactions ac
 * CSS: version 4.15
 * Bootstrap: version 5.0.0-beta2
 * JavaScript: version ES6
+* Node.js: version v14.16.0
 * Express: version 4.17.1
-* mongodb: version 3.6.4
+* Mongodb: version 3.6.4
 
 ### Setup
 ***
