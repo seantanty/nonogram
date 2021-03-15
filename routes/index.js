@@ -26,6 +26,18 @@ router.get("/register", function (req, res) {
   res.sendFile(path.join(__dirname + "/../public/register.html"));
 });
 
+//check same user name before register
+router.post("/checkSameUserName", async (req, res) => {
+  try {
+    console.log("Check same user name");
+    const result = await myDB.findSameUserName(req.body);
+    res.send({ same: result });
+  } catch (e) {
+    console.log("Error", e);
+    res.status(400).send({ err: e });
+  }
+});
+
 //register POST
 router.post("/register", async (req, res) => {
   try {
@@ -37,7 +49,7 @@ router.post("/register", async (req, res) => {
     };
     const dbRes = await myDB.createUser(userObj);
     if (dbRes == null) {
-      res.status(400).send({ message: "Username existed." });
+      res.redirect("/register");
     } else {
       passport.authenticate("local")(req, res, function () {
         res.redirect("/");

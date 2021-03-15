@@ -93,6 +93,29 @@ function MyDB() {
     }
   };
 
+  myDB.findSameUserName = async (query = {}) => {
+    let client;
+    try {
+      client = new MongoClient(url, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(DB_NAME);
+      const userCol = db.collection("Users");
+      const data = await userCol.find(query).toArray();
+
+      if (data != null && data.length == 1) {
+        if (data[0].username === query.username) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } finally {
+      client.close();
+    }
+  };
+
   myDB.findUserByUserName = async (query = {}, done) => {
     let client;
     try {
@@ -131,6 +154,8 @@ function MyDB() {
     }
   };
 
+  //save time to leaderboard if the time is in top 10.
+  //leaderboard only maintain top 10(shortest) time with its user
   myDB.saveToLeaderBoard = async (query = {}) => {
     let client;
     try {
@@ -144,11 +169,7 @@ function MyDB() {
       let res = null;
       let dbLb = data[0].leaderBoard;
 
-      if (
-        query.index == 11 ||
-        query.index == dbLb.length ||
-        dbLb.length == undefined
-      ) {
+      if (query.index == 11 || dbLb.length == undefined) {
         res = await db.collection("puzzles").updateOne(
           { _id: data[0]._id },
           {
@@ -157,7 +178,7 @@ function MyDB() {
         );
       } else {
         if (query.trim == true) {
-          let pos = query.index - (dbLb.length - 1);
+          let pos = query.index;
           res = await db.collection("puzzles").updateOne(
             { _id: data[0]._id },
             {
@@ -178,7 +199,7 @@ function MyDB() {
             }
           );
         } else {
-          let pos = query.index - (dbLb.length - 1);
+          let pos = query.index;
           res = await db.collection("puzzles").updateOne(
             { _id: data[0]._id },
             {
@@ -198,6 +219,7 @@ function MyDB() {
     }
   };
 
+  //save played puzzle time to user only if the time is better then previous time
   myDB.saveTimeToUser = async (query = {}) => {
     let client;
     try {

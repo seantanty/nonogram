@@ -178,51 +178,49 @@ async function play() {
         });
         const res = await resRaw.json();
         console.log(res);
-        //if leaderboard.size<5, change res.leaderboard and record to leaderboard
-        if (lb.leaderBoard.length < 10) {
-          if (lb.leaderBoard.length == 0) {
-            const resLbRaw = await fetch("/saveToLeaderBoard", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username: user.username,
-                puzzleId: lb._id,
-                time: sec,
-                index: 11,
-                trim: false,
-              }),
-            });
-            const resLb = await resLbRaw.json();
-            console.log(resLb);
-          } else {
-            let checkIndex = 12;
-            for (let i = 0; i < lb.leaderBoard.length; i++) {
-              if (lb.leaderBoard[i][1] > totalSeconds) {
-                checkIndex = i;
-                break;
-              }
+
+        if (
+          lb.leaderBoard.length == null ||
+          lb.leaderBoard.length == undefined
+        ) {
+          const resLbRaw = await fetch("/saveToLeaderBoard", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: user.username,
+              puzzleId: lb._id,
+              time: sec,
+              index: 11,
+              trim: false,
+            }),
+          });
+          const resLb = await resLbRaw.json();
+          console.log(resLb);
+        } else if (lb.leaderBoard.length < 10) {
+          let checkIndex = 11;
+          for (let i = 0; i < lb.leaderBoard.length; i++) {
+            if (lb.leaderBoard[i][1] > totalSeconds) {
+              checkIndex = i;
+              break;
             }
-            if (checkIndex == 12) {
-              checkIndex = lb.leaderBoard.length;
-            }
-            const resLbRaw = await fetch("/saveToLeaderBoard", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username: user.username,
-                _id: lb._id,
-                time: sec,
-                index: checkIndex,
-                trim: false,
-              }),
-            });
-            const resLb = await resLbRaw.json();
-            console.log(resLb);
           }
+          const resLbRaw = await fetch("/saveToLeaderBoard", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: user.username,
+              puzzleId: lb._id,
+              time: sec,
+              index: checkIndex,
+              trim: false,
+            }),
+          });
+          const resLb = await resLbRaw.json();
+          console.log(resLb);
         } else {
           let checkIndex = 11;
           for (let i = 0; i < lb.leaderBoard.length; i++) {
@@ -239,7 +237,7 @@ async function play() {
               },
               body: JSON.stringify({
                 username: user.username,
-                _id: lb._id,
+                puzzleId: lb._id,
                 time: sec,
                 index: checkIndex,
                 trim: true,
