@@ -1,14 +1,11 @@
 const authAnchor = document.querySelector("#authAnchor");
 let totalSeconds = 0;
 
-
 //add login/logout button to NavBar
 async function appendAuth() {
   authAnchor.innerHTML = "";
   const userRaw = await fetch("/getUser");
   const user = await userRaw.json();
-
-  console.log("Check user", user);
 
   if (user.username != null) {
     const logout = document.createElement("a");
@@ -22,11 +19,12 @@ async function appendAuth() {
     let loginText = document.createTextNode("Login");
     login.appendChild(loginText);
     login.setAttribute("class", "btn btn-outline-primary");
-    login.setAttribute("href", "/login.html");
+    login.setAttribute("href", "/login");
     authAnchor.appendChild(login);
   }
 }
 
+//overall puzzle play function
 async function play() {
   // get a puzzle
   let puzzles, puzzle;
@@ -42,13 +40,13 @@ async function play() {
   const SIZE_SMALL = 5;
   const SIZE_MEDIUM = 10;
   const SIZE_LARGE = 15;
-  
+
   let currentSelectState = undefined;
 
   let timerVar;
 
   document.getElementById("searchForm").addEventListener("submit", getPlaySave);
-  
+
   document
     .getElementById("small")
     .addEventListener("click", () => playSave(SIZE_SMALL, null));
@@ -58,7 +56,7 @@ async function play() {
   document
     .getElementById("large")
     .addEventListener("click", () => playSave(SIZE_LARGE, null));
-  
+
   async function getPlaySave(event) {
     event.preventDefault();
 
@@ -66,18 +64,16 @@ async function play() {
     console.log("Puzzle id: ", puzzleId);
 
     playSave(null, puzzleId);
-  
   }
 
   document.getElementById("restart").addEventListener("click", () => {
     window.location.reload();
   });
 
-  
   async function playSave(size, puzzleId) {
     let resRaw;
     let idx = 0;
-  
+
     if (size) {
       resRaw = await fetch("/getPuzzlesPlay");
       let res = await resRaw.json();
@@ -94,8 +90,7 @@ async function play() {
       }
 
       puzzle = await puzzles[idx][0];
-
-    } else{
+    } else {
       const resRaw = await fetch("/searchBoard", {
         method: "POST",
         headers: {
@@ -122,14 +117,13 @@ async function play() {
       makeGame();
       setHints();
       timerVar = setInterval(countTimer, 1000);
-    } 
+    }
 
     document.getElementById("submit").addEventListener("click", () => {
       if (solved == true) {
         checkGameAndRecordTime(totalSeconds);
       }
     });
-
 
     function countTimer() {
       ++totalSeconds;
@@ -139,8 +133,8 @@ async function play() {
       if (hour < 10) hour = "0" + hour;
       if (minute < 10) minute = "0" + minute;
       if (seconds < 10) seconds = "0" + seconds;
-      document.getElementById("timer").innerHTML = "Timer: " + 
-        hour + ":" + minute + ":" + seconds;
+      document.getElementById("timer").innerHTML =
+        "Timer: " + hour + ":" + minute + ":" + seconds;
     }
 
     function checkForWin() {
@@ -167,15 +161,10 @@ async function play() {
     async function checkGameAndRecordTime(sec) {
       const userRaw = await fetch("/getUser");
       const user = await userRaw.json();
-
-      console.log("Check user", user);
-
       let lb = puzzle;
-      console.log(lb);
-      console.log("Time stop" + sec);
 
       if (user.username != null) {
-      //first store time and puzzle id to user
+        //first store time and puzzle id to user
         const resRaw = await fetch("/saveTimeToUser", {
           method: "POST",
           headers: {
@@ -271,7 +260,7 @@ async function play() {
       const divTime = document.createElement("div");
       divTime.textContent = "You finished the puzzle in " + sec + " seconds.";
       divLeaderBoard.appendChild(divTime);
-      
+
       const divBoardName = document.createElement("div");
       divBoardName.innerHTML = "Leader Board";
       divLeaderBoard.appendChild(divBoardName);
@@ -279,7 +268,7 @@ async function play() {
       console.log("Updated puzzle: ", lb);
       renderBoard(lb, divLeaderBoard);
       return lb;
-    } 
+    }
 
     function tableCreate(lb, divBoard) {
       let tbl = document.createElement("table");
@@ -331,7 +320,6 @@ async function play() {
 
       divLocation.appendChild(divBoard);
     }
-
 
     // updates game cells, not info cells
     function updateTable() {
@@ -507,7 +495,7 @@ async function play() {
             case STATE_MARKED:
               cell.selectedState = STATE_UNSELECTED;
               break;
-          } 
+          }
 
           currentSelectState = cell.selectedState;
 
@@ -520,7 +508,6 @@ async function play() {
     }
   }
 }
-
 
 appendAuth();
 play();

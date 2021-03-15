@@ -14,9 +14,7 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const filesCol = db.collection("puzzles");
       const files = await filesCol
@@ -32,10 +30,8 @@ function MyDB() {
           { $limit: 3 },
         ])
         .toArray();
-      console.log("Got puzzles", files);
       return files;
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -45,17 +41,12 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const filesCol = db.collection("puzzles");
-      console.log("Collection ready, querying with id: ", { code: query });
       const files = await filesCol.find({ code: query }).toArray();
-      console.log("Got the puzzle", files);
       return files[0];
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -65,12 +56,9 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const filesCol = db.collection("puzzles");
-      //console.log("Collection ready, querying with id: ", query);
       const files = new Array(3);
       var sizes = new Array(5, 10, 15);
       for (var i = 0; i < 3; i++) {
@@ -80,11 +68,8 @@ function MyDB() {
         files[i] = file;
       }
 
-      console.log("Got files", files);
-
       return files;
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -104,7 +89,6 @@ function MyDB() {
         return res;
       }
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -114,12 +98,9 @@ function MyDB() {
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
       await client.connect();
-      console.log("find user!");
       const db = client.db(DB_NAME);
       const userCol = db.collection("Users");
-      console.log("Collection ready, querying with ", query);
       const data = await userCol.find(query).toArray();
-      console.log("Got user", data);
 
       if (data != null && data.length == 1) {
         return done(null, data[0]);
@@ -127,7 +108,6 @@ function MyDB() {
         return done(null, null);
       }
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -136,14 +116,10 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const userCol = db.collection("Users");
-      console.log("Collection ready, querying with ", query);
       const data = await userCol.find(query).toArray();
-      console.log("Got user", data);
 
       if (data != null && data.length == 1) {
         return done(null, data[0]);
@@ -151,7 +127,6 @@ function MyDB() {
         return done(null, null);
       }
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -160,15 +135,11 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const puzzleCol = db.collection("puzzles");
       let o_id = new ObjectId(query.puzzleId);
-      console.log("Collection ready, querying with ", { _id: o_id });
       const data = await puzzleCol.find({ _id: o_id }).toArray();
-      console.log("Got user", data);
 
       let res = null;
       let dbLb = data[0].leaderBoard;
@@ -221,10 +192,8 @@ function MyDB() {
           );
         }
       }
-      console.log("result saved as " + query.puzzleId + " " + query.time);
       return res;
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };
@@ -233,15 +202,11 @@ function MyDB() {
     let client;
     try {
       client = new MongoClient(url, { useUnifiedTopology: true });
-      console.log("Connecting to the db");
       await client.connect();
-      console.log("Connected!");
       const db = client.db(DB_NAME);
       const userCol = db.collection("Users");
       let findUserQuery = { username: query.username };
-      console.log("Collection ready, querying with ", findUserQuery);
       const data = await userCol.find(findUserQuery).toArray();
-      console.log("Got user", data);
 
       let res = { result: "No need to update" };
       let games = data[0].played;
@@ -255,7 +220,6 @@ function MyDB() {
             $push: { played: { gameId: query.puzzleCode, time: query.time } },
           }
         );
-        console.log("result saved as " + query.puzzleCode + " " + query.time);
       } else {
         let index = null;
         for (let i = 0; i < games.length; i++) {
@@ -271,9 +235,7 @@ function MyDB() {
               $push: { played: { gameId: query.puzzleCode, time: query.time } },
             }
           );
-          console.log("result saved as " + query.puzzleCode + " " + query.time);
         } else if (index != null) {
-          console.log("herrrrrrr");
           if (query.time < games[index].time) {
             //replace existing puzzleId's time
             let updateQuery = {
@@ -286,9 +248,6 @@ function MyDB() {
             res = await db
               .collection("Users")
               .updateOne(updateQuery, updateDoc);
-            console.log(
-              "result saved as " + query.puzzleCode + " " + query.time
-            );
           }
         } else if (index == null) {
           //first time play game, add puzzleId with time to array
@@ -298,12 +257,10 @@ function MyDB() {
               $push: { played: { gameId: query.puzzleCode, time: query.time } },
             }
           );
-          console.log("result saved as " + query.puzzleCode + " " + query.time);
         }
       }
       return res;
     } finally {
-      console.log("Closing the connection");
       client.close();
     }
   };

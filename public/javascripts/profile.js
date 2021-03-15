@@ -62,7 +62,7 @@ async function renderProfile() {
     let loginText = document.createTextNode("Login");
     login.appendChild(loginText);
     login.setAttribute("class", "btn btn-outline-primary");
-    login.setAttribute("href", "/login.html");
+    login.setAttribute("href", "/login");
     authAnchor.appendChild(login);
   }
 }

@@ -18,20 +18,21 @@ body {
 table {
     background-color: white;
 }
-table, tr, td {
+table,
+tr,
+td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-
 #timer {
-  font-size: 100%;
-  font-weight: bold;
-  color: #00bfff;
+    font-size: 100%;
+    font-weight: bold;
+    color: #00bfff;
 }
 
 .controls {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 #puzzleid {
@@ -39,11 +40,10 @@ table, tr, td {
     border: 1.5px solid;
 }
 
-#submit, #restart {
+#submit,
+#restart {
     margin-top: 50px;
 }
-
-
 
 table td {
     min-width: 20px;
@@ -56,7 +56,7 @@ table td {
 }
 
 .game-cell.marked {
-    background: url('./icons8-delete-50.png');
+    background: url("./icons8-delete-50.png");
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;

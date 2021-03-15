@@ -21,7 +21,7 @@ async function appendAuth() {
     let loginText = document.createTextNode("Login");
     login.appendChild(loginText);
     login.setAttribute("class", "btn btn-outline-primary");
-    login.setAttribute("href", "/login.html");
+    login.setAttribute("href", "/login");
     authAnchor.appendChild(login);
   }
 }
@@ -29,7 +29,6 @@ async function appendAuth() {
 function tableCreate(lb, divBoard) {
   let tbl = document.createElement("table");
   tbl.style.width = "100%";
-  // tbl.setAttribute("border", "1");
   tbl.setAttribute(
     "class",
     "table col-sm table-striped table-hover table-bordered border-primary"
@@ -74,7 +73,6 @@ function renderBoard(puzzle, divLocation) {
   divBoard.className = "board p-1 col-4";
 
   const divName = document.createElement("div");
-  //divName.style.color = "#ffa500";
   divName.style.fontWeight = "50%";
   divName.textContent = "Puzzle Id: " + puzzle.code;
   divBoard.appendChild(divName);
@@ -93,7 +91,6 @@ async function reloadBoards() {
   for (let i = 0; i < 3; i++) {
     renderBoard(res.puzzles[i], divBoards);
   }
-  //res.puzzles.forEach(renderBoard, divBoards);
 }
 
 async function displaySearchBoard(event) {
