@@ -35,7 +35,7 @@ From the project, we learn to design app functionaities, implement them accordin
 * There are both size and puzzle id options for users to choose a prefered puzzle.
 * Playing a puzzle is user friendly, with playing instructions and features, count up timer, result alert and leaderboard display.
 * Users can play without login.
-* Records are atomatically saved for users after logging in to user profiles.
+* Records are automatically saved for users after logging in to user profiles.
 * Users can access to their user profiles and leaderboards of the puzzles.
 
 ### Technnogolies
