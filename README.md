@@ -1,4 +1,4 @@
-# Nonogram (https://morning-shelf-65761.herokuapp.com/)
+# Nonogram(https://morning-shelf-65761.herokuapp.com/)
 Author: [Yongliang (Sean) Tan](https://seantanty.github.io/CS-5610-project1/index.html) & [Xinyi Ge](https://xinyijackiege.github.io/)\
 Class Link: [Web Development](https://johnguerra.co/classes/webDevelopment_spring_2021/)
 ***
