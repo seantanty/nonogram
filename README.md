@@ -29,6 +29,7 @@ From the project, we learn to design app functionaities, implement them accordin
 ![Alt text](./images/Screenshot_play.png?raw=true "Play")
 ![Alt text](./images/Screenshot_user.png?raw=true "UserLogin")
 ![Alt text](./images/Screenshot_user1.png?raw=true "User")
+![Alt text](./images/Screenshot_lb.png?raw=true "Leaderboard")
 
 ### Features
 ***
