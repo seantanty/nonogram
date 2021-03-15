@@ -12,7 +12,6 @@ A nonogram playing web app for fun and web developement learning purposes.
 4. [Technologies](#technologies)
 5. [Setup](#Setup)
 6. [Inspiration](#inspiration)
-
 ### Project Objective
 ***
 This project is served as the 2nd project of Web Development course. 
@@ -27,16 +26,17 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Screenshots
 *** 
-![Alt text](https://github.com/seantanty/nonogram/images/ "")
-![Alt text](https://github.com/seantanty/nonogram/images/ "About")
-![Alt text](https://github.com/seantanty/nonogram/images/ "About")
+![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_play.png "Play")
+![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_user.png "UserLogin")
+![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_user1.png "User")
+![Alt text](https://github.com/seantanty/nonogram/images/Screenshot_lb.png "Leaderboard")
 
 ### Features
 ***
-* There are both size and puzzle id options for users to choose a prefered puzzle.
+* There are both size and puzzle id options for users to choose a prefered puzzle.\* 
 * Playing a puzzle is user friendly, with playing instructions and features, count up timer, result alert and leaderboard display.
-* Users can play without login.
-* Records are atomatically saved for users after logging in to user profiles.
+* Users can play without login.\
+* Records are atomatically saved for users after logging in to user profiles.\
 * Users can access to their user profiles and leaderboards of the puzzles.
 
 ### Technnogolies
@@ -49,11 +49,15 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Setup
 ***
-If you would like to explore the app, in the directory:\
-$ install nodejs (https://nodejs.org/en/download/package-manager/)<br>
+If you would like to explore the app, install nodejs (https://nodejs.org/en/download/package-manager/)
+In your directory:\
 $ npm install\
 $ npm start\
 go to localhost:3000 and enjoy!
+
+### Inspiration
+***
+Part of codes for puzzle display and play are inspired by [1hella](https://github.com/1hella/html5-nonogram-game).
 
 
 
