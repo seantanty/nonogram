@@ -57,12 +57,7 @@ function tableCreate(lb, divBoard) {
     tr.appendChild(td);
     for (let j = 0; j < 2; j++) {
       td = document.createElement("td");
-      if (i == 0) {
-        td.appendChild(document.createTextNode(lb[i][j].split("@")[0]));
-      } else {
-        td.appendChild(document.createTextNode(lb[i][j]));
-      }
-
+      td.appendChild(document.createTextNode(lb[i][j]));
       tr.appendChild(td);
     }
     tbdy.appendChild(tr);
