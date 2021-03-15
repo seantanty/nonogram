@@ -5,9 +5,7 @@ let regExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)
 document.getElementById("submitButton").addEventListener("click", () => {
   registerSubmit();
 });
-//check email is valid
-//make sure username has not been used
-//check passwork is not empty
+
 export async function registerSubmit() {
   if (email.value.match(regExp)) {
     if (

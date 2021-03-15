@@ -165,7 +165,7 @@ async function play() {
 
       if (user.username != null) {
         //first store time and puzzle id to user
-        const resRaw = await fetch("/saveTimeToUser", {
+        await fetch("/saveTimeToUser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -176,14 +176,12 @@ async function play() {
             time: sec,
           }),
         });
-        const res = await resRaw.json();
-        console.log(res);
 
         if (
           lb.leaderBoard.length == null ||
           lb.leaderBoard.length == undefined
         ) {
-          const resLbRaw = await fetch("/saveToLeaderBoard", {
+          await fetch("/saveToLeaderBoard", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -196,8 +194,6 @@ async function play() {
               trim: false,
             }),
           });
-          const resLb = await resLbRaw.json();
-          console.log(resLb);
         } else if (lb.leaderBoard.length < 10) {
           let checkIndex = 11;
           for (let i = 0; i < lb.leaderBoard.length; i++) {
@@ -206,7 +202,7 @@ async function play() {
               break;
             }
           }
-          const resLbRaw = await fetch("/saveToLeaderBoard", {
+          await fetch("/saveToLeaderBoard", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -219,8 +215,6 @@ async function play() {
               trim: false,
             }),
           });
-          const resLb = await resLbRaw.json();
-          console.log(resLb);
         } else {
           let checkIndex = 11;
           for (let i = 0; i < lb.leaderBoard.length; i++) {
@@ -230,7 +224,7 @@ async function play() {
             }
           }
           if (checkIndex < 10) {
-            const resLbRaw = await fetch("/saveToLeaderBoard", {
+            await fetch("/saveToLeaderBoard", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -243,8 +237,6 @@ async function play() {
                 trim: true,
               }),
             });
-            const resLb = await resLbRaw.json();
-            console.log(resLb);
           }
         }
       }

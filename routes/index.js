@@ -29,7 +29,6 @@ router.get("/register", function (req, res) {
 //check same user name before register
 router.post("/checkSameUserName", async (req, res) => {
   try {
-    console.log("Check same user name");
     const result = await myDB.findSameUserName(req.body);
     res.send({ same: result });
   } catch (e) {
@@ -123,7 +122,6 @@ router.get("/getPuzzles", async (req, res) => {
 
 //get board by searching puzzle id
 router.post("/searchBoard", async (req, res) => {
-  console.log("Search a puzzle", req.body);
   try {
     const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
@@ -149,7 +147,6 @@ router.post("/searchBoard", async (req, res) => {
 
 //route to save solved puzzle to user collection
 router.post("/saveTimeToUser", async (req, res) => {
-  console.log("save time", req.body);
   try {
     const saveTime = await myDB.saveTimeToUser(req.body);
     res.send(saveTime);
@@ -161,7 +158,6 @@ router.post("/saveTimeToUser", async (req, res) => {
 
 //route to save solved puzzle to puzzle collection
 router.post("/saveToLeaderBoard", async (req, res) => {
-  console.log("save to leaderboard", req.body);
   try {
     const saveLB = await myDB.saveToLeaderBoard(req.body);
     res.send(saveLB);

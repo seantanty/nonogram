@@ -74,6 +74,7 @@ function MyDB() {
     }
   };
 
+  //user register
   myDB.createUser = async (user) => {
     let client;
     try {
@@ -93,6 +94,7 @@ function MyDB() {
     }
   };
 
+  //check if same username exist
   myDB.findSameUserName = async (query = {}) => {
     let client;
     try {
