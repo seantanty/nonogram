@@ -1,4 +1,10 @@
-# Nonogram(https://morning-shelf-65761.herokuapp.com/)
+<p align="center">
+  <a href="https://morning-shelf-65761.herokuapp.com/">
+    <img src="https://i.imgur.com/oeLf3bn.png" alt="NonoGram logo" width="200" height="165">
+  </a>
+</p>
+
+<h1 align="center">NonoGram</h1>
 Author: [Yongliang (Sean) Tan](https://seantanty.github.io/CS-5610-project1/index.html) & [Xinyi Ge](https://xinyijackiege.github.io/)\
 Class Link: [Web Development](https://johnguerra.co/classes/webDevelopment_spring_2021/)
 ***
