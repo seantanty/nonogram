@@ -128,14 +128,16 @@ router.post("/searchBoard", async (req, res) => {
     const puzzleId = req.body.puzzleid;
     const puzzle = await myDB.getPuzzleById(puzzleId);
     let leaderBoard = {
-      code: puzzle.code,
-      leaderBoard: puzzle.leaderBoard,
-      info: puzzle.info,
-      success: true,
+      success: false,
     };
     if (puzzle == null) {
+      console.log("No leaderboard found");
+    } else {
       leaderBoard = {
-        success: false,
+        code: puzzle.code,
+        leaderBoard: puzzle.leaderBoard,
+        info: puzzle.info,
+        success: true,
       };
     }
     res.send(leaderBoard);
