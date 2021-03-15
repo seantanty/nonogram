@@ -26,17 +26,17 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Screenshots
 *** 
-![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_play.png "Play")
-![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_user.png "UserLogin")
-![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_user1.png "User")
-![Alt text](https://github.com/seantanty/nonogram/main/images/Screenshot_lb.png "Leaderboard")
+![Alt text](./images/Screenshot_play.png?raw=true "Play")
+![Alt text](./images/Screenshot_user.png?raw=true "UserLogin")
+![Alt text](./images/Screenshot_user1.png?raw=true "User")
+![Alt text](./images/Screenshot_lb.png?raw=true "Leaderboard")
 
 ### Features
 ***
-* There are both size and puzzle id options for users to choose a prefered puzzle.\* 
+* There are both size and puzzle id options for users to choose a prefered puzzle.
 * Playing a puzzle is user friendly, with playing instructions and features, count up timer, result alert and leaderboard display.
-* Users can play without login.\
-* Records are atomatically saved for users after logging in to user profiles.\
+* Users can play without login.
+* Records are atomatically saved for users after logging in to user profiles.
 * Users can access to their user profiles and leaderboards of the puzzles.
 
 ### Technnogolies
@@ -49,7 +49,7 @@ From the project, we learn to design app functionaities, develpoment web pages a
 
 ### Setup
 ***
-If you would like to explore the app, install nodejs (https://nodejs.org/en/download/package-manager/)
+If you would like to explore the app, install nodejs (https://nodejs.org/en/download/package-manager/)<br>
 In your directory:\
 $ npm install\
 $ npm start\
