@@ -7,7 +7,6 @@
 # NonoGram
 Author: [Yongliang (Sean) Tan](https://seantanty.github.io/CS-5610-project1/index.html) & [Xinyi Ge](https://xinyijackiege.github.io/)\
 Class Link: [Web Development](https://johnguerra.co/classes/webDevelopment_spring_2021/)\
-Deployed to Heroku: [Link](https://morning-shelf-65761.herokuapp.com/)
 ***
 A nonogram playing web app for fun and web developement learning purposes.
 <a href="https://www.youtube.com/watch?v=xBcZ3NBeZso">Video demo</a>
